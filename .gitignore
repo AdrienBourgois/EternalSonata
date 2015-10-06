@@ -1,0 +1,7 @@
+makefile
+*.o
+*.d
+debug/
+bin/
+*.swp
+assets/

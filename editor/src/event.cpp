@@ -1,13 +1,15 @@
 #include "myIrrlicht.h"
 #include "event.h"
 
-virtual bool EventReceiver::OnEvent(const SEvent& event)
+using namespace irr;
+
+bool EventReceiver::OnEvent(const SEvent& event)
 {
     if (event.EventType == EET_GUI_EVENT )
     {
         switch ( event.GUIEvent.EventType )
         {
-            case EGET_BUTTON_CLICKED:
+            case gui::EGET_BUTTON_CLICKED:
             {
                 if ( event.GUIEvent.Caller == App.ButtonSave )
                 {
@@ -21,13 +23,16 @@ virtual bool EventReceiver::OnEvent(const SEvent& event)
                     App.Player->setStat(L"spirit", App.spiritBox->getText());
                     App.Player->setStat(L"agility", App.agilityBox->getText());
 
-                    if (App.Settings->save())
+                    if (App.Player->save())
                         App.Gui->addMessageBox(L"Player saved",L"The player has been saved !","",true);
                 }
 
                 else if ( event.GUIEvent.Caller == App.ButtonExit)
                     App.ShouldQuit = true;
             }
+            break;
+
+            default:
             break;
         }
     }

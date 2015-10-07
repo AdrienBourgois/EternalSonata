@@ -1,6 +1,9 @@
 #ifndef __EVENT_INCLUDE__
 #define __EVENT_INCLUDE__
 
+#include "myIrrlicht.h"
+#include "context.h"
+
 class EventReceiver : public IEventReceiver
 {
 public:
@@ -10,7 +13,6 @@ public:
 
 private:
     SAppContext & App;
-
-}
+};
 
 #endif

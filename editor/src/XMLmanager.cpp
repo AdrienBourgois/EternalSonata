@@ -1,7 +1,11 @@
 #include "myIrrlicht.h"
 #include "XMLmanager.h"
 
-PlayerManager::PlayerManager(const stringw& playerFilePath): playerFilePath(player_path_file), NullDevice(0)
+#include <map>
+
+using namespace irr;
+
+PlayerManager::PlayerManager(const core::stringw& player_path_file): playerFilePath(player_path_file), NullDevice(0)
 {
     NullDevice = createDevice(video::EDT_NULL);
 
@@ -16,7 +20,7 @@ PlayerManager::PlayerManager(const stringw& playerFilePath): playerFilePath(play
     PlayerMap.insert(L"agility", L"0");
 }
 
-~PlayerManager::~PlayerManager()
+PlayerManager::~PlayerManager()
 {
     if (NullDevice)
     {
@@ -34,9 +38,9 @@ bool PlayerManager::load()
     if (!xml)
         return false;
 
-    const stringw statTag(L"stat");
-    stringw currentSection;
-    const stringw playerTag(L"player");
+    const core::stringw statTag(L"stat");
+    core::stringw currentSection;
+    const core::stringw playerTag(L"player");
 
     while (xml->read())
     {
@@ -44,12 +48,12 @@ bool PlayerManager::load()
         {
             case io::EXN_ELEMENT:
             {
-                if (currentSection.empty && videoTag.equal_ignore_case(xml->getNodeName()))
+                if (currentSection.empty() && playerTag.equals_ignore_case(xml->getNodeName()))
                     currentSection = playerTag;
 
-                else if (currentSection.equal_ignore_case(playerTag) && statTag.equal_ignore_case(xml->getNodeName() ))
+                else if (currentSection.equals_ignore_case(playerTag) && statTag.equals_ignore_case(xml->getNodeName() ))
                 {
-                    stringw key = xml->getAttributeValueSafe(L"name");
+                    core::stringw key = xml->getAttributeValueSafe(L"name");
                     if(!key.empty())
                         PlayerMap[key] = xml->getAttributeValueSafe(L"value");
                 }
@@ -57,6 +61,9 @@ bool PlayerManager::load()
 
             case io::EXN_ELEMENT_END:
                 currentSection = L"";
+            break;
+
+            default:
             break;
         }
     }
@@ -80,8 +87,8 @@ bool PlayerManager::save()
     xwriter->writeElement(L"player");
     xwriter->writeLineBreak();
 
-    map<stringw, stringw>::Iterator i = PlayerMap.getIterator();
-    for(; !i.atEnd(); ++i)
+    core::map<core::stringw, core::stringw>::Iterator i = PlayerMap.getIterator();
+    for(; !i.atEnd(); i++)
     {
         xwriter->writeElement(L"stats", true, L"name", i->getKey().c_str(), L"value", i->getValue().c_str() );
         xwriter->writeLineBreak();
@@ -95,40 +102,40 @@ bool PlayerManager::save()
     return true;
 }
 
-void PlayerManager::setStat(const stringw& name, const stringw& value)
+void PlayerManager::setStat(const core::stringw& name, const core::stringw& value)
 {
     PlayerMap[name] = value;
 }
 
-void PlayerManager::setStat(const stringw& name, s32 value)
+void PlayerManager::setStat(const core::stringw& name, s32 value)
 {
-    PlayerMap[name] = stringw(value);
+    PlayerMap[name] = core::stringw(value);
 }
 
-stringw PlayerManager::getStat(const stringw& key) const
+core::stringw PlayerManager::getStat(const core::stringw& key) const
 {
-    map<stringw, stringw>::Node* n = PlayerMap.find(key);
+    core::map<core::stringw, core::stringw>::Node* n = PlayerMap.find(key);
     if (n)
         return n->getValue();
     else
         return L"";
 }
 
-bool PlayerManager::getSettingAsBoolean(const stringw& key ) const
+bool PlayerManager::getStatAsBoolean(const core::stringw& key ) const
 {
-    stringw s = getSetting(key);
+    core::stringw s = getStat(key);
     if (s.empty())
         return false;
     return s.equals_ignore_case(L"1");
 }
 
-s32 PlayerManager::getSettingAsInteger(const stringw& key) const
+s32 PlayerManager::getStatAsInteger(const core::stringw& key) const
 {
-        const stringc s = getSetting(key);
-        if (s.empty())
-            return 0;
-        
-        return strtol10(s.c_str());
+    const core::stringc s = getStat(key);
+    if (s.empty())
+        return 0;
+    
+    return core::strtol10(s.c_str());
 }
 
 

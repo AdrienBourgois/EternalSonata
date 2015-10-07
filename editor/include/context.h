@@ -1,6 +1,11 @@
 #ifndef __CONTEXT_INCLUDE__
 #define __CONTEXT_INCLUDE__
 
+#include "myIrrlicht.h"
+#include "XMLmanager.h"
+
+using namespace irr;
+
 struct SAppContext
 {
     SAppContext()
@@ -12,23 +17,25 @@ struct SAppContext
     ~SAppContext();
 
     IrrlichtDevice* Device;
-    IGUIEnvironment* Gui;
-    IVideoDriver* Driver;
+    gui::IGUIEnvironment* Gui;
+    video::IVideoDriver* Driver;
     PlayerManager* Player;
     bool ShouldQuit;
 
-    IGUIButton* ButtonSave;
-    IGUIButton* ButtonExit;
+    gui::IGUIButton* ButtonSave;
+    gui::IGUIButton* ButtonExit;
 
-    IGUIEditBox* nameBox;
-    IGUIEditBox* strengthBox;
-    IGUIEditBox* dexterityBox;
-    IGUIEditBox* intelligenceBox;
-    IGUIEditBox* speedBox;
-    IGUIEditBox* resistanceBox;
-    IGUIEditBox* luckBox;
-    IGUIEditBox* spiritBox;
-    IGUIEditBox* agilityBox;
+    gui::IGUIEditBox* nameBox;
+    gui::IGUIEditBox* strengthBox;
+    gui::IGUIEditBox* dexterityBox;
+    gui::IGUIEditBox* intelligenceBox;
+    gui::IGUIEditBox* speedBox;
+    gui::IGUIEditBox* resistanceBox;
+    gui::IGUIEditBox* luckBox;
+    gui::IGUIEditBox* spiritBox;
+    gui::IGUIEditBox* agilityBox;
+
+    void createPlayerDialog();
 };
 
 #endif

@@ -1,6 +1,7 @@
 #ifndef __XMLMANAGER_INCLUDE__
 #define __XMLMANAGER_INCLUDE__
 
+#include <map>
 #include "myIrrlicht.h"
 
 using namespace irr;
@@ -8,24 +9,24 @@ using namespace irr;
 class PlayerManager
 {
 public:
-    PlayerManager(const stringw& playerFilePath);
+    PlayerManager(const core::stringw& playerFilePath);
     bool load();
     bool save();
 
-    setStat(const stringw& name, const stringw& value);
-    setStat(const stringw& name, s32 value);
+    void setStat(const core::stringw& name, const core::stringw& value);
+    void setStat(const core::stringw& name, s32 value);
 
-    getStat(const stringw& key) const;
-    getSettingAsBoolean(const stringw& key ) const;
+    core::stringw getStat(const core::stringw& key) const;
+    bool getStatAsBoolean(const core::stringw& key ) const;
 
-    getSettingAsInteger(const stringw& key) const;
+    s32 getStatAsInteger(const core::stringw& key) const;
 
     ~PlayerManager();
 
 private:
-    map<stringw, stringw> PlayerMap;
+    core::map<core::stringw, core::stringw> PlayerMap;
 
-    stringw playerFilePath;
+    core::stringw playerFilePath;
     IrrlichtDevice* NullDevice;
 };
 

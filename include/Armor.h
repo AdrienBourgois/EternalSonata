@@ -4,11 +4,11 @@
 class Armor
 {
     private:
-        Armor_Piece head;
-        Armor_Piece torso;
-        Armor_Piece pants;
-        Armor_Piece boots;
-        Armor_Piece gloves;
+        Armor_Piece* head;
+        Armor_Piece* torso;
+        Armor_Piece* pants;
+        Armor_Piece* boots;
+        Armor_Piece* gloves;
 
     public:
         Armor() = default;

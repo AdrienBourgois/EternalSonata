@@ -7,45 +7,48 @@ class Character : public Entity
     private:
         irr::core:stringw   name;
 
-        int                 strength,
-                            dexterity,
-                            intelligence,
-                            speed,
-                            resistance,
-                            luck,
-                            spirit,
-                            agility;
+        struct Sstats
+        {
+            int                 strength,
+                                dexterity,
+                                intelligence,
+                                speed,
+                                resistance,
+                                luck,
+                                spirit,
+                                agility;
+        }stats;
 
-        Weapon              weapons;
-        Armor               armor;
+        Weapon*             weapon;
+        Armor*              armor;
 
     public:
         Character();
-        Character(Character const&) = default; /** Copy Allowed **/
-        ~Character();
+        Character(Character const&) = default;
+        ~Character() = default;
 
         Character& operator =(Character const&) const = default;
 
-        void setStrength(int s)         :strength(s);
-        void setDexterity(int d)        :dexterity(d);
-        void setIntelligence(int i)     :intelligence(i);
-        void setSpeed(int s)            :speed(s);
-        void setResistance(int r)       :resistance(r);
-        void setLuck(int l)             :luck(l);
-        void setSpirit(int s)           :spirit(s);
-        void setAgility(int a)          :agility(a);
-        void setWeapon(Weapon const& w) :weapons(w);
-        void setArmor(Armor const& a)   :armor(a);
+        void setStrength(int s)         :stats.strength(s);
+        void setDexterity(int d)        :stats.dexterity(d);
+        void setIntelligence(int i)     :stats.intelligence(i);
+        void setSpeed(int s)            :stats.speed(s);
+        void setResistance(int r)       :stats.resistance(r);
+        void setLuck(int l)             :stats.luck(l);
+        void setSpirit(int s)           :stats.spirit(s);
+        void setAgility(int a)          :stats.agility(a);
+        void setWeapon(Weapon const& w) :stats.weapons(w);
+        void setArmor(Armor const& a)   :stats.armor(a);
 
-        int getStrength() const         {return strength;};
-        int getDexterity() const        {return dexterity;};
-        int getIntelligence() const     {return intelligence;};
-        int getSpeed() const            {return speed;};
-        int getResistance() const       {return resistance;};
-        int getLuck() const             {return luck;};
-        int getSpirit() const           {return spirit;};
-        int getAgility() const          {return agility;};
-        auto& getWeapons() const        {return weapon;};
+        int getStrength() const         {return stats.strength;};
+        int getDexterity() const        {return stats.dexterity;};
+        int getIntelligence() const     {return stats.intelligence;};
+        int getSpeed() const            {return stats.speed;};
+        int getResistance() const       {return stats.resistance;};
+        int getLuck() const             {return stats.luck;};
+        int getSpirit() const           {return stats.spirit;};
+        int getAgility() const          {return stats.agility;};
+        auto& getWeapon() const         {return weapon;};
         auto& getArmor() const          {return armor;};
 }
 

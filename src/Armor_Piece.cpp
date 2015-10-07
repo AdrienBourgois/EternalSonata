@@ -2,8 +2,8 @@
 
 Armor_Piece::Armor_Piece()
 {
-    phy_Defence = mag_Defence = 0;
-    name = "Naked";
+    phy_Defence = mag_Defence = 1;
+    name = "None";
 }
 
 

@@ -11,7 +11,7 @@ int main (int, char*[])
 {
     SAppContext app;
 
-    app.Player = new PlayerManager("/media/player.xml");
+    app.Player = new PlayerManager("player.xml");
     if (!app.Player->load())
         return EXIT_FAILURE;
 

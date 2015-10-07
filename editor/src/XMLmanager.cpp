@@ -1,3 +1,4 @@
+#include <iostream>
 #include "myIrrlicht.h"
 #include "XMLmanager.h"
 
@@ -8,6 +9,7 @@ using namespace irr;
 PlayerManager::PlayerManager(const core::stringw& player_path_file): playerFilePath(player_path_file), NullDevice(0)
 {
     NullDevice = createDevice(video::EDT_NULL);
+    std::cout << "NULL Device created" << std::endl;
 
     PlayerMap.insert(L"name", L"");
     PlayerMap.insert(L"strength", L"0");
@@ -18,6 +20,7 @@ PlayerManager::PlayerManager(const core::stringw& player_path_file): playerFileP
     PlayerMap.insert(L"luck", L"0");
     PlayerMap.insert(L"spirit", L"0");
     PlayerMap.insert(L"agility", L"0");
+    std::cout << "PlayerMap initialized" << std::endl;
 }
 
 PlayerManager::~PlayerManager()
@@ -26,17 +29,26 @@ PlayerManager::~PlayerManager()
     {
         NullDevice->closeDevice();
         NullDevice->drop();
+        std::cout << "Destruct PlayerManager" << std::endl;
     }
 }
 
 bool PlayerManager::load()
 {
+    std::cout << "Load XML file" << std::endl;
+
     if (!NullDevice)
+    {
+        std::cout << "Any device !" << std::endl;
         return false;
+    }
 
     io::IXMLReader* xml = NullDevice->getFileSystem()->createXMLReader(playerFilePath);
     if (!xml)
+    {
+        std::cout << "Can't create XMLReader !" << std::endl;
         return false;
+    }
 
     const core::stringw statTag(L"stat");
     core::stringw currentSection;
@@ -70,11 +82,14 @@ bool PlayerManager::load()
 
     xml->drop();
 
+    std::cout << "File loaded" << std::endl;
     return true;
 }
 
 bool PlayerManager::save()
 {
+    std::cout << "Save file" << std::endl;
+
     if (!NullDevice)
         return false;
 
@@ -99,6 +114,7 @@ bool PlayerManager::save()
 
     xwriter->drop();
 
+    std::cout << "File saved" << std::endl;
     return true;
 }
 

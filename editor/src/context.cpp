@@ -1,8 +1,12 @@
+#include <iostream>
 #include "myIrrlicht.h"
 #include "context.h"
 
+
 SAppContext::~SAppContext()
 {
+    std::cout << "Desctruct context" << std::endl;
+
     if (Player)
         delete Player;
 
@@ -15,6 +19,7 @@ SAppContext::~SAppContext()
 
 void SAppContext::createPlayerDialog()
 {
+    std::cout << "Create the player dialog" << std::endl;
     for (irr::s32 i=0; i<irr::gui::EGDC_COUNT ; ++i)
     {
         irr::video::SColor col = this->Gui->getSkin()->getColor((irr::gui::EGUI_DEFAULT_COLOR)i);

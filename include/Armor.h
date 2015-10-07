@@ -11,9 +11,9 @@ class Armor
         Armor_Piece gloves;
 
     public:
-        Armor();
+        Armor() = default;
         Armor(Armor const&) = default;
-        ~Armor();
+        ~Armor() = default;
 
         Armor& operator =(Armor const&) = default;
 
@@ -23,14 +23,11 @@ class Armor
         void setBoots(Armor const& b)   :boots(b);
         void setGloves(Armor const& g)  :gloves(g);
 
-        Armor_Piece& getHead() const    {return head;};
-        Armor_Piece& getTorso() const   {return torso;};
-        Armor_Piece& getPants() const   {return pants;};
-        Armor_Piece& getBoots() const   {return boots;};
-        Armor_Piece& getGloves() const  {return gloves;};
-
-
-
+        auto& getHead() const    {return head;};
+        auto& getTorso() const   {return torso;};
+        auto& getPants() const   {return pants;};
+        auto& getBoots() const   {return boots;};
+        auto& getGloves() const  {return gloves;};
 }
 
 #endif

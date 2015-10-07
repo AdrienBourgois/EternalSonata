@@ -45,8 +45,8 @@ class Character : public Entity
         int getLuck() const             {return luck;};
         int getSpirit() const           {return spirit;};
         int getAgility() const          {return agility;};
-        Weapons& getWeapons() const     {return weapon;};
-        Armor& getArmor() const         {return armor;};
+        auto& getWeapons() const        {return weapon;};
+        auto& getArmor() const          {return armor;};
 }
 
 #endif

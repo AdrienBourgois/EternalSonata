@@ -1,13 +1,13 @@
-#include "myIrrlicht.h"
+#include "Character.h"
+#include <iostream>
 
-int main(int, char*[])
+int main()
 {
-    Game game;
+    using namespace std;
 
-    while (game->getDevice->run())
-    {
-        game.Update();
-    }
+    Character player;
+    cout << player;
 
-    game.end();
+
+    return 0;
 }

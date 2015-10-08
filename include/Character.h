@@ -35,7 +35,7 @@ class Character /**: public Entity **/
 
         Character& operator =(Character const&) = default;
 
-        void setName(std::string n)  {name = n;};
+        void setName(std::string n)         {name = n;};
         void setStrength(int s)             {stats.strength = s;};
         void setDexterity(int d)            {stats.dexterity = d;};
         void setIntelligence(int i)         {stats.intelligence = i;};

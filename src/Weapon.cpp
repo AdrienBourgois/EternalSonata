@@ -5,3 +5,4 @@ Weapon::Weapon()
     damage = 1;
     name = "Bare hands";
 }
+

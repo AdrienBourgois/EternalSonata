@@ -13,7 +13,7 @@ class Armor
         Armor_Piece* gloves;
 
     public:
-        Armor() = default;
+        Armor();
         Armor(Armor const&) = default;
         ~Armor() = default;
 

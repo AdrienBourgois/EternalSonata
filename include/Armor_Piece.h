@@ -15,7 +15,7 @@ class Armor_Piece
         Armor_Piece();
 
         Armor_Piece(int phyMagD)        
-            :phy_Defence(phyMagD), mag_Defence(phyMagD), name("Magical invisible Armor"){};
+            :phy_Defence(phyMagD), mag_Defence(phyMagD), name("Magical Invisible Armor"){};
         
         Armor_Piece(int phyD, int magD) 
             :phy_Defence(phyD), mag_Defence(magD), name("Magical Invisible Armor"){};

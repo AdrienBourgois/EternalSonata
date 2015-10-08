@@ -14,6 +14,7 @@ bool EventReceiver::OnEvent(const SEvent& event)
             {
                 if ( event.GUIEvent.Caller == App.ButtonSave )
                 {
+                    std::cout << "Button Save pressed" << std::endl;
                     App.Player->setStat(L"name", App.nameBox->getText());
                     App.Player->setStat(L"strength", App.strengthBox->getText());
                     App.Player->setStat(L"dexterity", App.dexterityBox->getText());

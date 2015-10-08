@@ -11,15 +11,15 @@ PlayerManager::PlayerManager(const core::stringw& player_path_file): playerFileP
     NullDevice = createDevice(video::EDT_NULL);
     std::cout << "NULL Device created" << std::endl;
 
-    PlayerMap.insert(L"name", L"");
-    PlayerMap.insert(L"strength", L"0");
+    PlayerMap.insert(L"agility", L"0");
     PlayerMap.insert(L"dexterity", L"0");
     PlayerMap.insert(L"intelligence", L"0");
-    PlayerMap.insert(L"speed", L"0");
-    PlayerMap.insert(L"resistance", L"0");
     PlayerMap.insert(L"luck", L"0");
+    PlayerMap.insert(L"name", L"");
+    PlayerMap.insert(L"resistance", L"0");
+    PlayerMap.insert(L"speed", L"0");
     PlayerMap.insert(L"spirit", L"0");
-    PlayerMap.insert(L"agility", L"0");
+    PlayerMap.insert(L"strength", L"0");
     std::cout << "PlayerMap initialized" << std::endl;
 }
 
@@ -105,7 +105,7 @@ bool PlayerManager::save()
     core::map<core::stringw, core::stringw>::Iterator i = PlayerMap.getIterator();
     for(; !i.atEnd(); i++)
     {
-        xwriter->writeElement(L"stats", true, L"name", i->getKey().c_str(), L"value", i->getValue().c_str() );
+        xwriter->writeElement(L"stat", true, L"name", i->getKey().c_str(), L"value", i->getValue().c_str() );
         xwriter->writeLineBreak();
     }
     xwriter->writeLineBreak();

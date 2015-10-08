@@ -13,20 +13,21 @@ class Character /**: public Entity **/
 {
     private:
         std::string         name;
+        unsigned int        level;
         Sstats*             stats;
-        
         Weapon*             weapon;
         Armor*              armor;
 
     public:
         Character();
         Character(Character const&) = default;
-        Character(Sstats* s)  :name("Inideva" ), stats(s), weapon(new Weapon), armor(new Armor) {};
+        Character(Sstats* s)  :name("Inideva" ), level(1), stats(s), weapon(new Weapon), armor(new Armor) {};
         ~Character() = default;
 
         Character& operator =(Character const&) = default;
 
         void setName(std::string n)         {name = n;};
+        void setLevel(unsigned int i)       {level = i;};
         void setStrength(int s)             {stats->strength = s;};
         void setDexterity(int d)            {stats->dexterity = d;};
         void setIntelligence(int i)         {stats->intelligence = i;};
@@ -39,6 +40,7 @@ class Character /**: public Entity **/
         void setArmor(Armor* a)             {armor = a;};
 
         auto& getName() const       {return name;};
+        auto getLevel() const       {return level;};
         int getStrength() const     {return stats->strength;};
         int getDexterity() const    {return stats->dexterity;};
         int getIntelligence() const {return stats->intelligence;};
@@ -49,6 +51,8 @@ class Character /**: public Entity **/
         int getAgility() const      {return stats->agility;};
         auto& getWeapon() const     {return weapon;};
         auto& getArmor() const      {return armor;};
+
+//        void virtual attack(Character&) = 0;
 };
 
 std::ostream& operator <<(std::ostream& os, Character const&);

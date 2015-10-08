@@ -8,7 +8,8 @@ Character::Character()
     stats = new Sstats;
     weapon = new Weapon;
     armor = new Armor;
-    
+
+    level = 1;
     stats->strength = 10;
     stats->dexterity = 10;
     stats->intelligence = 10;
@@ -26,6 +27,7 @@ std::ostream& operator <<(std::ostream& os, Character const& c)
     using namespace std;
     os      << "[Character Debug]" << endl
             << "-Name: " << c.getName() << endl
+            << "-Level: " << c.getLevel() << endl
             << "-Strength: " << c.getStrength() << endl
             << "-Dexterity: " << c.getDexterity() << endl
             << "-Intelligence: " << c.getIntelligence() << endl

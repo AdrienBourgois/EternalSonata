@@ -1,4 +1,5 @@
 #include "EventReceiver.h"
+#include <iostream>
 
 EventReceiver::EventReceiver()
 {
@@ -33,6 +34,27 @@ bool EventReceiver::OnEvent(const irr::SEvent& event)
 
             default:
                 break; /** Wheel not used **/
+        }
+    }
+
+    else if (event.EventType == irr::EET_GUI_EVENT)
+    {
+        irr::s32 id = event.GUIEvent.Caller->getID();
+
+        switch(event.GUIEvent.EventType)
+        {
+            case irr::gui::EGET_BUTTON_CLICKED:
+                switch(id)
+                {
+                    case GUI_ID_QUIT_BUTTON:
+                        return true;
+
+                    default:
+                        return false;
+                }
+
+            default:
+                return false;
         }
     }
 

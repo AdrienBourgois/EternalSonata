@@ -2,6 +2,18 @@
 #define __EVENTRECEIVER_H__
 #include "myIrrlicht.h"
 
+enum mainMenuButton
+{
+    GUI_ID_PLAY_BUTTON = 101,
+    GUI_ID_QUIT_BUTTON,
+};
+
+enum pauseMenuButton
+{
+    GUI_ID_PAUSE_RESUME_BUTTON = 201,
+    GUI_ID_PAUSE_QUIT_BUTTON,
+};
+
 class EventReceiver : public irr::IEventReceiver
 {
     private:

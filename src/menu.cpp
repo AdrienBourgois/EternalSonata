@@ -22,3 +22,21 @@ void Menu::showMainMenu()
         this->menuDisplay = 1;
     }
 }
+
+void Menu::showPauseMenu()
+{
+    this->env = this->device->getGUIEnvironment();
+    if (!this->isMenuDisplay())
+    {
+        this->setResponsive();
+        gui::IGUIButton* resumeButton = env->addButton({40 * window_width_100, 50 * window_height_100, 60 * window_width_100, 60 * window_height_100},
+                0, GUI_ID_PLAY_BUTTON, L"Resume");
+        gui::IGUIButton* quitButton = env->addButton({40 * window_width_100, 70 * window_height_100, 60 * window_width_100, 80 * window_height_100},
+                0, GUI_ID_QUIT_BUTTON, L"Quit");
+
+        (void)resumeButton;
+        (void)quitButton;
+
+        this->menuDisplay = 1;
+    }
+}

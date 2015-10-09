@@ -46,9 +46,22 @@ bool EventReceiver::OnEvent(const irr::SEvent& event)
             case irr::gui::EGET_BUTTON_CLICKED:
                 switch(id)
                 {
+                    /* Main Menu */
+                    case GUI_ID_PLAY_BUTTON:
+                        return true;
+
                     case GUI_ID_QUIT_BUTTON:
                         return true;
 
+                    /* Pause Menu */
+
+                    case GUI_ID_PAUSE_RESUME_BUTTON:
+                        return true;
+
+                    case GUI_ID_PAUSE_QUIT_BUTTON:
+                        return true;
+
+                    /* --------- */
                     default:
                         return false;
                 }

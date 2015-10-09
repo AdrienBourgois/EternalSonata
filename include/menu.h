@@ -14,11 +14,15 @@ public:
     void showMainMenu();
     void showPauseMenu();
 
-    void setWindowSize(const int width, const int height) { this->window_width = width;
-                                                       this->window_height = height; }
+    void setWindowSize(core::dimension2d<u32> size) { if (this->windowSize != size) 
+                                                        {windowSize = size;
+                                                        this->newSize = true;}}
+        
 
-    void setResponsive() { window_width_100 = window_width / 100;
-                      window_height_100 = window_height / 100; }
+    void setResponsive() { this->window_width = this->windowSize.Width;
+                           this->window_height = this->windowSize.Height;
+                           this->window_width_100 = this->window_width / 100;
+                           this->window_height_100 = this->window_height / 100; }
 
     void setDevice(IrrlichtDevice* device) {this->device = device;
                                             this->driver = device->getVideoDriver();
@@ -31,6 +35,8 @@ private:
     IrrlichtDevice* device;
     video::IVideoDriver* driver;
     gui::IGUIEnvironment* env;
+    core::dimension2d<u32> windowSize;
+    bool newSize;
     int window_height;
     int window_width;
     int window_height_100;

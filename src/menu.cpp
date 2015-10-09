@@ -8,35 +8,33 @@ using namespace irr;
 void Menu::showMainMenu()
 {
     this->env = this->device->getGUIEnvironment();
-    if (!this->isMenuDisplay())
+    if (!this->isMenuDisplay() || this->newSize)
     {
+        env->clear();
         this->setResponsive();
-        gui::IGUIButton* playButton = env->addButton({40 * window_width_100, 50 * window_height_100, 60 * window_width_100, 60 * window_height_100},
+        env->addButton({40 * window_width_100, 50 * window_height_100, 60 * window_width_100, 60 * window_height_100},
                 0, GUI_ID_PLAY_BUTTON, L"Play");
-        gui::IGUIButton* quitButton = env->addButton({40 * window_width_100, 70 * window_height_100, 60 * window_width_100, 80 * window_height_100},
+        env->addButton({40 * window_width_100, 70 * window_height_100, 60 * window_width_100, 80 * window_height_100},
                 0, GUI_ID_QUIT_BUTTON, L"Quit");
 
-        (void)playButton;
-        (void)quitButton;
-
         this->menuDisplay = 1;
+        this->newSize = false;
     }
 }
 
 void Menu::showPauseMenu()
 {
     this->env = this->device->getGUIEnvironment();
-    if (!this->isMenuDisplay())
+    if (!this->isMenuDisplay() || this->newSize)
     {
+        env->clear();
         this->setResponsive();
-        gui::IGUIButton* resumeButton = env->addButton({40 * window_width_100, 50 * window_height_100, 60 * window_width_100, 60 * window_height_100},
+        env->addButton({40 * window_width_100, 50 * window_height_100, 60 * window_width_100, 60 * window_height_100},
                 0, GUI_ID_PLAY_BUTTON, L"Resume");
-        gui::IGUIButton* quitButton = env->addButton({40 * window_width_100, 70 * window_height_100, 60 * window_width_100, 80 * window_height_100},
+        env->addButton({40 * window_width_100, 70 * window_height_100, 60 * window_width_100, 80 * window_height_100},
                 0, GUI_ID_QUIT_BUTTON, L"Quit");
 
-        (void)resumeButton;
-        (void)quitButton;
-
         this->menuDisplay = 1;
+        this->newSize = false;
     }
 }

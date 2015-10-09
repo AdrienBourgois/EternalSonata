@@ -3,12 +3,14 @@
 #include <map>
 #include <string>
 
+#include "Item.h"
+
 struct Inventory 
 {
     public:
-        map<std::string, map<unsigned int, Entity>> item_tab;      /**     ----String---|---Map----     :Item tabs (Weapon, Armor...) [Name of the tab, Tab Inventory]  **/
+        map<std::string, map<unsigned int, Item>> item_tab;        /**     ----String---|---Map----     :Item tabs (Weapon, Armor...) [Name of the tab, Tab Inventory]  **/
         unsigned int next_id;                                      /**                       |                                                                          **/
-                                                                   /**             ----Int---|---Entity----  :Entity Inventory [ID of entity, Entity itself]            **/
+                                                                   /**             ----Int---|---Item----  :Item Inventory [ID of Item, Item itself]                    **/
 }
 
 #endif

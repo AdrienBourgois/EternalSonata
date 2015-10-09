@@ -1,5 +1,5 @@
 #include "Character.h"
-
+#include <cassert>
 
 
 Character::Character()
@@ -25,6 +25,9 @@ Character::Character()
 std::ostream& operator <<(std::ostream& os, Character const& c)
 {
     using namespace std;
+
+    c.assertCharacter(c);
+
     os      << "[Character Debug]" << endl
             << "-Name: " << c.getName() << endl
             << "-Level: " << c.getLevel() << endl
@@ -50,3 +53,17 @@ std::ostream& operator <<(std::ostream& os, Character const& c)
 
     return os;
 }
+
+void Character::assertCharacter(Character const& c) const
+{
+    assert( c.weapon && "WEAPON POINTER IS NULL !" );
+    assert( c.armor && "ARMOR POINTER IS NULL !" );
+    assert( c.armor->getHead() && "HEAD ARMOR POINTER IS NULL !");
+    assert( c.armor->getTorso() && "TORSO ARMOR POINTER IS NULL !");
+    assert( c.armor->getGloves() && "GLOVES ARMOR POINTER IS NULL !");
+    assert( c.armor->getPants() && "PANTS ARMOR POINTER IS NULL !");
+    assert( c.armor->getBoots() && "BOOTS ARMOR POINTER IS NULL !");
+
+}
+
+

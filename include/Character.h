@@ -52,6 +52,8 @@ class Character /**: public Entity **/
         auto& getWeapon() const     {return weapon;};
         auto& getArmor() const      {return armor;};
 
+        void assertCharacter(Character const&) const;
+
 //        void virtual attack(Character&) = 0;
 };
 

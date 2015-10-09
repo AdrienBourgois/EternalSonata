@@ -1,22 +1,26 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 #include "CSceneNode.h"
-
+#include <map>
+#include <vector>
 class Entity: public CSceneNode 
 {
-    int life;
+    private:
+        unsigned int life;
+        std::map<>
 
     public:
         Entity();
+        Entity(Entity const&) = default;
         ~Entity() = default;
 
-        virtual void update() = 0;
+        Entity& operator =(Entity const&) = default;
 
-        virtual int getLife() 
-        { return this->life; }
+        int getLife() const
+        { return life; }
 
-        virtual void setLife(int life)
-        { this->life = life; }
+        void setLife(int l)
+        { life = l; }
 };
 
 #endif // __ENTITY_H__

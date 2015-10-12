@@ -14,14 +14,14 @@ class Character /**: public Entity **/
     private:
         std::string         name;
         unsigned int        level;
-        Sstats*             stats;
+        Stats*              stats;
         Weapon*             weapon;
         Armor*              armor;
 
     public:
         Character();
         Character(Character const&) = default;
-        Character(Sstats* s)  :name("Inideva" ), level(1), stats(s), weapon(new Weapon), armor(new Armor) {};
+        Character(Stats* s)  :name("Inideva" ), level(1), stats(s), weapon(new Weapon), armor(new Armor) {};
         ~Character() = default;
 
         Character& operator =(Character const&) = default;
@@ -53,8 +53,6 @@ class Character /**: public Entity **/
         auto& getArmor() const      {return armor;};
 
         void assertCharacter(Character const&) const;
-
-//        void virtual attack(Character&) = 0;
 };
 
 std::ostream& operator <<(std::ostream& os, Character const&);

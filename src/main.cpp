@@ -24,10 +24,18 @@ int main(int, char*[])
     terrain->setMaterialType(video::EMT_DETAIL_MAP);
     terrain->scaleTexture(1.0f, 20.0f);
 
-    scene::ICameraSceneNode* camera = smgr->addCameraSceneNodeFPS(0,100.0f,3.f);
-    camera->setPosition(core::vector3df(2700*2,255*2,2600*2));
-    camera->setTarget(core::vector3df(2397*2,343*2,2700*2));
-    camera->setFarValue(42000.0f);
+    scene::IAnimatedMeshSceneNode* player = smgr->addAnimatedMeshSceneNode(smgr->getMesh("assets/ninja.b3d"));
+    player->setPosition({1150,250,1150});
+    player->setScale({7,7,7});
+    player->setMaterialFlag(video::EMF_LIGHTING, false);
+    player->setFrameLoop(206,250);
+
+    scene::ICameraSceneNode* camera = smgr->addCameraSceneNode();
+    core::vector3df posPlayer = player->getPosition();
+    core::vector3df posOffset(0.f,-100.f,100.f);
+    core::vector3df lookOffset(0.f,-30.f,0.f);
+    camera->setPosition(posPlayer - posOffset);
+    camera->setTarget(posPlayer - lookOffset);
 
     while(device->run())
     {

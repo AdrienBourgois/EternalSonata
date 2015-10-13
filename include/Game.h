@@ -28,7 +28,6 @@ class Game
         void loadPlayer(irr::scene::ITriangleSelector*);
         void run();
         std::array<irr::SKeyMap, 6> getWASDControl();
-        void execute_event(EventReceiver&);
         void end();
 
 };

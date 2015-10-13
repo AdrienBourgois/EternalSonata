@@ -83,21 +83,6 @@ void Game::loadPlayer(irr::scene::ITriangleSelector* t)
     device->getCursorControl()->setVisible(false);
 }
 
-void Game::execute_event(EventReceiver& ser)
-{
-    if (ser.isLMBD())
-    {
-        /** Donoth **/
-    }
-
-    if (ser.isRMBD())
-    {
-        /** Donoth **/
-    }
-
-}
-
-
 void Game::run()
 {
     while (device->run())

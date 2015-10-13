@@ -4,10 +4,7 @@
 #include <vector>
 #include <ostream>
 
-#include "CSceneNode.h"
-
-
-class Entity : public CSceneNode 
+class Entity 
 {
     private:
         unsigned int    life;

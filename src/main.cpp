@@ -1,12 +1,16 @@
 #include <iostream>
 #include "myIrrlicht.h"
+#include "EventReceiver.h"
+#include "menu.h"
 
 using namespace irr;
 using namespace std;
 
 int main(int, char*[])
 {
-    IrrlichtDevice* device = createDevice(video::EDT_OPENGL, {640,480}, 16, false, false, false, 0);
+    EventReceiver event;
+
+    IrrlichtDevice* device = createDevice(video::EDT_OPENGL, {640,480}, 16, false, false, false, &event);
 
     if (!device)
         return EXIT_FAILURE;
@@ -16,6 +20,9 @@ int main(int, char*[])
     video::IVideoDriver* driver = device->getVideoDriver();
     scene::ISceneManager* smgr = device->getSceneManager();
     gui::IGUIEnvironment* guienv = device->getGUIEnvironment();
+
+    Menu menu;
+    menu.setDevice(device);
 
     scene::ITerrainSceneNode* terrain = smgr->addTerrainSceneNode("assets/terrain-heightmap.bmp", 0, -1, {0.f,0.f,0.f}, {0.f,0.f,0.f}, {40.f,1.f,40.f}, {255,255,255,255}, 1);
     terrain->setMaterialFlag(video::EMF_LIGHTING, false);
@@ -39,6 +46,8 @@ int main(int, char*[])
 
     while(device->run())
     {
+        menu.showMainMenu();
+
         driver->beginScene(true, true);
 
         smgr->drawAll();

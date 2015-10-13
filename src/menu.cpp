@@ -7,6 +7,7 @@ using namespace irr;
 
 void Menu::showMainMenu()
 {
+    setWindowSize(driver->getScreenSize());
     this->env = this->device->getGUIEnvironment();
     if (!this->isMenuDisplay() || this->newSize)
     {
@@ -24,6 +25,7 @@ void Menu::showMainMenu()
 
 void Menu::showPauseMenu()
 {
+    setWindowSize(driver->getScreenSize());
     this->env = this->device->getGUIEnvironment();
     if (!this->isMenuDisplay() || this->newSize)
     {

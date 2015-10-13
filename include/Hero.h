@@ -12,7 +12,7 @@ class Hero : public Character
         Hero() = default;
         ~Hero() = default;
         Hero(Hero const&) = default;
-        void /*virtual*/ attack(Character&) /*override*/;
+        //void /*virtual*/ attack(Character&) /*override*/;
 };
 
 #endif

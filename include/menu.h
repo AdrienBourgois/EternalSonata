@@ -42,6 +42,7 @@ private:
     int window_height_100;
     int window_width_100;
     int menuDisplay = 0;
+    int menuToBeDisplay = 0;
 };
 
 #endif

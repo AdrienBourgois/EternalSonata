@@ -46,6 +46,8 @@ int main(int, char*[])
 
     while(device->run())
     {
+        event.checkAndExec();
+
         menu.showMainMenu();
 
         driver->beginScene(true, true);

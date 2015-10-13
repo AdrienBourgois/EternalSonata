@@ -33,6 +33,8 @@ class EventReceiver : public irr::IEventReceiver
             SMouseState() : LMBD(false), RMBD(false) {};
         } MouseState;
 
+        irr::s32 idButton;
+
     public:
         EventReceiver();
         ~EventReceiver() = default;
@@ -45,6 +47,8 @@ class EventReceiver : public irr::IEventReceiver
         const bool& isLMBD() const {return MouseState.LMBD;};
         const bool& isRMBD() const {return MouseState.RMBD;};
         const bool& GetKeyboardState(irr::EKEY_CODE keyCode) const {return KeyboardState.KeyDown[keyCode];};
+        const irr::s32& getIdButton() {return idButton;}
+        void checkAndExec();
 };
 
 #endif // __EVENTRECEIVER_H__

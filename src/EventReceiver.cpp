@@ -12,66 +12,39 @@ bool EventReceiver::OnEvent(const irr::SEvent& event)
     if (event.EventType == irr::EET_KEY_INPUT_EVENT)
         KeyboardState.KeyDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
 
-    else if (event.EventType == irr::EET_MOUSE_INPUT_EVENT)
+    if (event.EventType == irr::EET_MOUSE_INPUT_EVENT)
     {
-        switch (event.MouseInput.Event)
-        {
-            case irr::EMIE_LMOUSE_PRESSED_DOWN:
+        if (event.MouseInput.Event == irr::EMIE_LMOUSE_PRESSED_DOWN)
                 MouseState.LMBD = true;
-                break;
 
-            case irr::EMIE_LMOUSE_LEFT_UP:
+        else if (event.MouseInput.Event == irr::EMIE_LMOUSE_LEFT_UP)
                 MouseState.LMBD = false;
-                break;
 
-            case irr::EMIE_RMOUSE_PRESSED_DOWN:
+        if (event.MouseInput.Event == irr::EMIE_RMOUSE_PRESSED_DOWN)
                 MouseState.RMBD = true;
-                break;
 
-            case irr::EMIE_RMOUSE_LEFT_UP:
+        else if (event.MouseInput.Event == irr::EMIE_RMOUSE_LEFT_UP)
                 MouseState.RMBD = false;
-                break;
-
-            default:
-                break; /** Wheel not used **/
-        }
     }
 
-    else if (event.EventType == irr::EET_GUI_EVENT)
+    if (event.EventType == irr::EET_GUI_EVENT)
     {
         irr::s32 id = event.GUIEvent.Caller->getID();
 
-        switch(event.GUIEvent.EventType)
-        {
-            case irr::gui::EGET_BUTTON_CLICKED:
-                switch(id)
-                {
-                    /* Main Menu */
-                    case GUI_ID_PLAY_BUTTON:
-                        return true;
-
-                    case GUI_ID_QUIT_BUTTON:
-                        return true;
-
-                    /* Pause Menu */
-
-                    case GUI_ID_PAUSE_RESUME_BUTTON:
-                        return true;
-
-                    case GUI_ID_PAUSE_QUIT_BUTTON:
-                        return true;
-
-                    /* --------- */
-                    default:
-                        return false;
-                }
-
-            default:
-                return false;
-        }
+        if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+            idButton = id;
+        else
+            idButton = 0;
     }
 
     return false;
 }
 
+void EventReceiver::checkAndExec()
+{
+    if (GetKeyboardState(irr::KEY_KEY_A))
+        std::cout << "A press" << std::endl;
 
+    if (GetKeyboardState(irr::KEY_KEY_B))
+        std::cout << "B press" << std::endl;
+}

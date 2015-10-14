@@ -25,8 +25,8 @@ class Weapon
         void setDamage(int d)               {damage = d;};
         void setName(std::string n)         {name = n;};
 
-        int getDamage() {return damage;};
-        auto& getName() {return name;};
+        int getDamage() const {return damage;};
+        auto& getName() const {return name;};
 };
 
 #endif

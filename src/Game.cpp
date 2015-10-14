@@ -64,8 +64,6 @@ void Game::loadPlayer(irr::scene::ITriangleSelector* t)
 {
     character1 = new Hero;
 
-    character1->assertCharacter(static_cast<Character>(*character1));
-
     auto controls = getWASDControl();
 
     camera = scene_manager->addCameraSceneNodeFPS(0, 100.f, 0.5f, -1, controls.data(), 6, true, 3.f);

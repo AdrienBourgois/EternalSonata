@@ -1,6 +1,6 @@
 #include <iostream>
 #include "myIrrlicht.h"
-#include "menu.h"
+#include "Menu.h"
 #include "EventReceiver.h"
 
 using namespace irr;

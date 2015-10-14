@@ -1,14 +1,18 @@
 #include "Entity.h"
 #include <iostream>
 
-Entity::ID = 0;
+unsigned int Entity::ID = 0;
 
 Entity::Entity()
 {
-    inventory = new Inventory;
     ID += 1;   
 }
 
+Entity::Entity(unsigned int entity_life)
+{
+    life = entity_life;
+    ID += 1;
+}
 
 
 Entity::~Entity()
@@ -16,12 +20,12 @@ Entity::~Entity()
     ID -= 1;
 }
 
-ostream& operator <<(ostream& os, Entity& e)
+ostream& operator <<(ostream& os, Entity& given_entity)
 {
     using namespace std;
 
     os  << "[Entity Debug]" 
-        << "-Life: " << e.getLive() << endl;
+        << "-Life: " << given_entity.getLife() << endl;
 
     return os;
 }

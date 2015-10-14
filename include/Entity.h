@@ -4,14 +4,10 @@
 #include <vector>
 #include <ostream>
 
-#include "CSceneNode.h"
-#include "Inventory.h"
-
-class Entity: public CSceneNode 
+class Entity 
 {
     private:
         unsigned int    life;
-        Inventory*      inventory;
 
     public:
 
@@ -19,22 +15,15 @@ class Entity: public CSceneNode
 
 
         Entity();
-        Entity(unsigned int i)                  : life(i), inventory(new Inventory){}, ID(+=1);
-        Entity(Inventory* i)                    : life(10), Inventory(i){}, ID(+=1);
-        Entity(unsigned int i, Inventory in)    : life(i), inventory(in), ID(+=1);
+        Entity(unsigned int entity_life);
         Entity(Entity const&) = default;
-        ~Entity() = default;
+        ~Entity();
 
         Entity& operator =(Entity const&) = default;
         
-        void setLife(int l)             { life = l; };
-        void setInventory(Inventory* i) { inventory = i; };
+        void setLife(int entity_life)                   { life = entity_life; };
 
-        int getLife() const
-        { return life; }
-
-
-        void showInventory(Inventory*) const;
+        int getLife() const                             { return life; };
 };
 
 using namespace std;

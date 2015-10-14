@@ -5,7 +5,7 @@
 Character::Character()
 {
     name = "Inideva";
-    stats = new Sstats;
+    stats = new Stats;
     weapon = new Weapon;
     armor = new Armor;
 

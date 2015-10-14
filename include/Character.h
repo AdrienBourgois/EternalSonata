@@ -6,7 +6,7 @@
 #include "myIrrlicht.h"
 #include "Weapon.h"
 #include "Armor.h"
-#include "Sstats.h"
+#include "Stats.h"
 //#include "entity.h"
 
 class Character /**: public Entity **/

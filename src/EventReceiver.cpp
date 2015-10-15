@@ -15,7 +15,9 @@ bool EventReceiver::OnEvent(const irr::SEvent& event)
     if (event.EventType == irr::EET_MOUSE_INPUT_EVENT)
     {
         if (event.MouseInput.Event == irr::EMIE_LMOUSE_PRESSED_DOWN)
+        {
                 MouseState.LMBD = true;
+        }
 
         else if (event.MouseInput.Event == irr::EMIE_LMOUSE_LEFT_UP)
                 MouseState.LMBD = false;
@@ -40,14 +42,4 @@ bool EventReceiver::OnEvent(const irr::SEvent& event)
     return false;
 }
 
-void EventReceiver::checkAndExec()
-{
-    if (GetKeyboardState(irr::KEY_KEY_A))
-    {
-        std::cout << "A press" << std::endl;
-        game.character1->getNode()->setFrameLoop(0, 13);
-    }
 
-    if (GetKeyboardState(irr::KEY_KEY_B))
-        std::cout << "B press" << std::endl;
-}

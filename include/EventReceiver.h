@@ -1,7 +1,6 @@
 #ifndef __EVENTRECEIVER_H__
 #define __EVENTRECEIVER_H__
 #include "myIrrlicht.h"
-#include "Game.h"
 
 enum mainMenuButton
 {
@@ -36,8 +35,6 @@ class EventReceiver : public irr::IEventReceiver
 
         irr::s32 idButton;
 
-        Game game;
-
     public:
         EventReceiver();
         ~EventReceiver() = default;
@@ -47,13 +44,10 @@ class EventReceiver : public irr::IEventReceiver
 
         virtual bool OnEvent(const irr::SEvent&);
 
-        void setGame(Game game) { this->game = game };
-
-        const bool& isLMBD() const {return MouseState.LMBD;};
-        const bool& isRMBD() const {return MouseState.RMBD;};
-        const bool& GetKeyboardState(irr::EKEY_CODE keyCode) const {return KeyboardState.KeyDown[keyCode];};
-        const irr::s32& getIdButton() {return idButton;}
-        void checkAndExec();
+        const bool& isLMBD() const { return MouseState.LMBD; }
+        const bool& isRMBD() const { return MouseState.RMBD; }
+        const bool& GetKeyboardState(irr::EKEY_CODE keyCode) const { return KeyboardState.KeyDown[keyCode]; }
+        const irr::s32& getIdButton() { return idButton; }
 };
 
 #endif // __EVENTRECEIVER_H__

@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <cassert>
+#include <iostream>
 
 Game::Game()
 {
@@ -56,46 +57,27 @@ std::array<irr::SKeyMap, 6> Game::getWASDControl()
 
 void Game::loadPlayer()
 {
-    //character1 = new Hero;
+    this->character = new Hero;
 
     //auto controls = getWASDControl();
 
-    scene::IAnimatedMeshSceneNode* player = scene_manager->addAnimatedMeshSceneNode(scene_manager->getMesh("assets/ninja.b3d"));
-    player->setPosition({1150,250,1150});
-    player->setScale({7,7,7});
-    player->setMaterialFlag(video::EMF_LIGHTING, false);
-    player->setFrameLoop(206,250);
+    character->setNode(scene_manager->addAnimatedMeshSceneNode(scene_manager->getMesh("assets/ninja.b3d")));
+    character->setPosition({1150,250,1150});
+    character->getNode()->setScale({7,7,7});
+    character->getNode()->setMaterialFlag(video::EMF_LIGHTING, false);
+    character->getNode()->setFrameLoop(206,250);
     
     camera = scene_manager->addCameraSceneNodeFPS();
 
     irr::scene::ITriangleSelector* mapSelector = 0;
-    irr::scene::ISceneNode* meshMapNode;
 
-    mapSelector = scene_manager->createOctreeTriangleSelector(terrain, terrainSceneNode);
-    meshMapNode = scene_manager->addOctreeSceneNode(terrain);
-    meshMapNode->setTriangleSelector(mapSelector);
+    mapSelector = scene_manager->createTerrainTriangleSelector(terrainSceneNode, 0);
+    this->terrainSceneNode->setTriangleSelector(mapSelector);
     
-    irr::scene::ISceneNodeAnimator* scene_node_animator = scene_manager->createCollisionResponseAnimator(mapSelector, player);
+    irr::scene::ISceneNodeAnimator* scene_node_animator = scene_manager->createCollisionResponseAnimator(mapSelector, character->getNode(), irr::core::vector3df(1,1,1));
 
-    player->addAnimator(scene_node_animator);
+    character->getNode()->addAnimator(scene_node_animator);
     scene_node_animator->drop();
-}
-
-void Game::run()
-{
-    while (device->run())
-    {
-        event_receiver.checkAndExec();
-        if (device->isWindowActive())
-        {
-            //updateCamera();
-            driver->beginScene(true, true);
-            scene_manager->drawAll();
-            driver->endScene();
-        }
-        else
-            device->yield();
-    }
 }
 
 void Game::end()
@@ -110,4 +92,16 @@ void Game::updateCamera()
     core::vector3df lookOffset(0.f,-30.f,0.f);
     camera->setPosition(posPlayer - posOffset);
     camera->setTarget(posPlayer - lookOffset);
+}
+
+void Game::checkAndExec()
+{
+    if (event_receiver.GetKeyboardState(irr::KEY_KEY_A))
+    {
+        std::cout << "A press" << std::endl;
+        character->getNode()->setFrameLoop(0, 13);
+    }
+
+    if (event_receiver.GetKeyboardState(irr::KEY_KEY_B))
+        std::cout << "B press" << std::endl;
 }

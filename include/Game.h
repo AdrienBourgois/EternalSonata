@@ -21,11 +21,12 @@ class Game
 
         irr::scene::ICameraSceneNode*       camera;
         EventReceiver                       event_receiver;
-        Hero*                               character1;
+        Hero*                               character;
         scene::IAnimatedMeshSceneNode*      player;
 
     public:
         Game();
+        Game(EventReceiver event);
         ~Game()=default;
         
         Game(Game const&) = delete;
@@ -34,7 +35,6 @@ class Game
         
         void loadMap();
         void loadPlayer();
-        void run();
         std::array<irr::SKeyMap, 6> getWASDControl();
         void end();
 
@@ -44,8 +44,9 @@ class Game
         irr::IrrlichtDevice* getDevice() {return device;}
         irr::scene::ISceneManager* getScene_manager() {return scene_manager;}
         irr::gui::IGUIEnvironment* getEnvironment() {return environment;}
+        Hero* getPlayer() { return this->character; }
 
-
+        void checkAndExec();
 };
 
 #endif

@@ -10,15 +10,24 @@ using namespace std;
 
 int main(int, char*[])
 {
-    EventReceiver event;
     Game game;
-
-    event->setGame(game);
 
     game.loadMap();
     game.loadPlayer();
 
-    game.run();
+    while (game.getDevice()->run())
+    {
+        game.checkAndExec();
+        if (game.getDevice()->isWindowActive())
+        {
+            //updateCamera();
+            game.getDriver()->beginScene(true, true);
+            game.getScene_manager()->drawAll();
+            game.getDriver()->endScene();
+        }
+        else
+            game.getDevice()->yield();
+    }
 
     game.end();
     

@@ -18,7 +18,7 @@ Game::Game()
 
 void Game::loadMap()
 {
-    scene::ITerrainSceneNode* terrainSceneNode = scene_manager->addTerrainSceneNode("assets/terrain-heightmap.bmp", 0, -1, {0.f,0.f,0.f}, {0.f,0.f,0.f}, {40.f,1.f,40.f}, {255,255,255,255}, 1);
+    terrainSceneNode = scene_manager->addTerrainSceneNode("assets/terrain-heightmap.bmp", 0, -1, {0.f,0.f,0.f}, {0.f,0.f,0.f}, {40.f,1.f,40.f}, {255,255,255,255}, 1);
     terrainSceneNode->setMaterialFlag(video::EMF_LIGHTING, false);
     terrainSceneNode->setMaterialTexture(0, driver->getTexture("assets/terrain-texture.jpg"));
     terrainSceneNode->setMaterialTexture(1, driver->getTexture("assets/detailmap3.jpg"));
@@ -56,7 +56,7 @@ std::array<irr::SKeyMap, 6> Game::getWASDControl()
 
 void Game::loadPlayer()
 {
-    character1 = new Hero;
+    //character1 = new Hero;
 
     //auto controls = getWASDControl();
 
@@ -69,14 +69,15 @@ void Game::loadPlayer()
     camera = scene_manager->addCameraSceneNodeFPS();
 
     irr::scene::ITriangleSelector* mapSelector = 0;
-    irr::scene::IMeshSceneNode* meshMapNode;
+    irr::scene::ISceneNode* meshMapNode;
 
+    mapSelector = scene_manager->createOctreeTriangleSelector(terrain, terrainSceneNode);
     meshMapNode = scene_manager->addOctreeSceneNode(terrain);
     meshMapNode->setTriangleSelector(mapSelector);
-
     
-    irr::scene::ISceneNodeAnimator* scene_node_animator = scene_manager->createCollisionResponseAnimator(mapSelector, camera, irr::core::vector3df(30.f, 50.f, 30.f), irr::core::vector3df(0.f, -10.f, 0.f), irr::core::vector3df(0.f, 30.f, 0.f));
+    irr::scene::ISceneNodeAnimator* scene_node_animator = scene_manager->createCollisionResponseAnimator(mapSelector, player);
 
+    player->addAnimator(scene_node_animator);
     scene_node_animator->drop();
 }
 

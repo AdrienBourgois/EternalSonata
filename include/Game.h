@@ -17,6 +17,7 @@ class Game
         Menu                                menu;
 
         irr::scene::IMesh*                  terrain; 
+        scene::ITerrainSceneNode*           terrainSceneNode;
 
         irr::scene::ICameraSceneNode*       camera;
         EventReceiver                       event_receiver;

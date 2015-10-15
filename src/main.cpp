@@ -2,6 +2,7 @@
 #include "myIrrlicht.h"
 #include "EventReceiver.h"
 #include "menu.h"
+#include "Hero.h"
 
 using namespace irr;
 using namespace std;
@@ -9,6 +10,9 @@ using namespace std;
 int main(int, char*[])
 {
     EventReceiver event;
+    Game game;
+
+    event->setGame(game);
 
     IrrlichtDevice* device = createDevice(video::EDT_OPENGL, {640,480}, 16, false, false, false, &event);
 
@@ -31,11 +35,15 @@ int main(int, char*[])
     terrain->setMaterialType(video::EMT_DETAIL_MAP);
     terrain->scaleTexture(1.0f, 20.0f);
 
+    Hero* hero = new Hero;
+
     scene::IAnimatedMeshSceneNode* player = smgr->addAnimatedMeshSceneNode(smgr->getMesh("assets/ninja.b3d"));
     player->setPosition({1150,250,1150});
     player->setScale({7,7,7});
     player->setMaterialFlag(video::EMF_LIGHTING, false);
     player->setFrameLoop(206,250);
+
+    hero->setNode(player);
 
     scene::ICameraSceneNode* camera = smgr->addCameraSceneNode();
     core::vector3df posPlayer = player->getPosition();

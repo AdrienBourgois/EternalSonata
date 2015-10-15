@@ -3,14 +3,17 @@
 #include <map>
 #include <vector>
 #include <ostream>
+#include <string>
+#include "CSceneNode.h"
+#include "myIrrlicht.h"
 
 class Entity 
 {
     private:
         unsigned int    life;
+        irr::scene::IAnimatedMeshSceneNode* node;
 
     public:
-
         static unsigned int ID;
 
 
@@ -24,6 +27,12 @@ class Entity
         void setLife(int entity_life)                   { life = entity_life; };
 
         int getLife() const                             { return life; };
+
+        void setNode(irr::scene::IAnimatedMeshSceneNode* node) { this->node = node; }
+
+        const irr::core::vector3df getPosition() { return this->node->getPosition(); }
+
+        irr::scene::IAnimatedMeshSceneNode& getNode() { return this->node; }
 };
 
 using namespace std;

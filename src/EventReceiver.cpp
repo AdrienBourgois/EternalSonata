@@ -43,7 +43,10 @@ bool EventReceiver::OnEvent(const irr::SEvent& event)
 void EventReceiver::checkAndExec()
 {
     if (GetKeyboardState(irr::KEY_KEY_A))
+    {
         std::cout << "A press" << std::endl;
+        game.character1->getNode()->setFrameLoop(0, 13);
+    }
 
     if (GetKeyboardState(irr::KEY_KEY_B))
         std::cout << "B press" << std::endl;

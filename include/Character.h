@@ -7,9 +7,9 @@
 #include "Weapon.h"
 #include "Armor.h"
 #include "Stats.h"
-//#include "entity.h"
+#include "Entity.h"
 
-class Character /**: public Entity **/
+class Character : public Entity
 {
     private:
         std::string         name;

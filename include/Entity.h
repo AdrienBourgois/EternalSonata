@@ -30,9 +30,12 @@ class Entity
 
         void setNode(irr::scene::IAnimatedMeshSceneNode* node) { this->node = node; }
 
+        irr::scene::IAnimatedMeshSceneNode& getNode() { return this->node; }
+
         const irr::core::vector3df getPosition() { return this->node->getPosition(); }
 
-        irr::scene::IAnimatedMeshSceneNode& getNode() { return this->node; }
+        void setPosition(irr::core::vector3df position) { this->node->setPosition(position); }
+
 };
 
 using namespace std;

@@ -5,7 +5,7 @@ unsigned int Entity::ID = 0;
 
 Entity::Entity()
 {
-    ID += 1;   
+    ID += 1;
 }
 
 Entity::Entity(unsigned int entity_life)
@@ -13,7 +13,6 @@ Entity::Entity(unsigned int entity_life)
     life = entity_life;
     ID += 1;
 }
-
 
 Entity::~Entity()
 {

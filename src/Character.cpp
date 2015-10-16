@@ -40,10 +40,39 @@ std::ostream& operator <<(std::ostream& os, Character const& c)
 
             << "    -Pants:     " << c.getArmor().getPants().getName() << " (RPhy: " << c.getArmor().getPants().getPhyDef() << ") (RMag: " << c.getArmor().getPants().getMagDef() << ")" << endl
 
-            << "    -Boots:     " << c.getArmor().getBoots().getName() << " (RPhy: " << c.getArmor().getBoots().getPhyDef() << ") (RMag: " << c.getArmor().getBoots().getMagDef() << ")" << endl << endl;
+            << "    -Boots:     " << c.getArmor().getBoots().getName() << " (RPhy: " << c.getArmor().getBoots().getPhyDef() << ") (RMag: " << c.getArmor().getBoots().getMagDef() << ")" << endl;
 
 
     return os;
 }
 
 
+void Character::debugCharacter()
+{
+    using namespace std;
+
+    cout    << "[araer Debug]" << endl
+            << "-Name: " << getName() << endl
+            << "-Level: " << getLevel() << endl
+            << "-Strength: " << getStrength() << endl
+            << "-Dexterity: " << getDexterity() << endl
+            << "-Intelligence: " << getIntelligence() << endl
+            << "-Speed: " << getSpeed() << endl
+            << "-Resistance: " << getResistance() << endl
+            << "-Luck: " << getLuck() << endl
+            << "-Spirit: " << getSpirit() << endl
+            << "-Agility: " << getAgility() << endl 
+            << "-Weapon: " << getWeapon().getName() << " (" << getWeapon().getDamage() << ")" << endl
+            << "-Armor: " << endl
+            << "    -Head:      " << getArmor().getHead().getName() << " (RPhy: " << getArmor().getHead().getPhyDef() << ") (RMag: " << getArmor().getHead().getMagDef() << ")" << endl
+            << "    -Torso:     " << getArmor().getTorso().getName() << " (RPhy: " << getArmor().getTorso().getPhyDef() << ") (RMag: " << getArmor().getTorso().getMagDef() << ")" << endl
+
+            << "    -Gloves:    " << getArmor().getGloves().getName() << " (RPhy: " << getArmor().getGloves().getPhyDef() << ") (RMag: " << getArmor().getGloves().getMagDef() << ")" <<endl
+
+            << "    -Pants:     " << getArmor().getPants().getName() << " (RPhy: " << getArmor().getPants().getPhyDef() << ") (RMag: " << getArmor().getPants().getMagDef() << ")" << endl
+
+            << "    -Boots:     " << getArmor().getBoots().getName() << " (RPhy: " << getArmor().getBoots().getPhyDef() << ") (RMag: " << getArmor().getBoots().getMagDef() << ")" << endl;
+
+
+    inventory.showInventory();
+}

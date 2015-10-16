@@ -40,3 +40,23 @@ void Menu::showPauseMenu()
         this->newSize = false;
     }
 }
+
+void Menu::showPlayerMenu()
+{
+    setWindowSize(driver->getScreenSize());
+    this->env = this->device->getGUIEnvironment();
+    if (!this->isMenuDisplay() || this->newSize)
+    {
+        env->clear();
+        this->setResponsive();
+        env->addStaticText("", {40 * window_width_100, 70 * window_height_100, 60 * window_width_100, 80 * window_height_100}, false, true, 0, -1, true);
+        this->menuDisplay = 1;
+        this->newSize = false;
+    }
+}
+
+void Menu::quitMenu()
+{
+    menuToBeDisplay = 0;
+    env->clear();
+}

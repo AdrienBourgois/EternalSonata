@@ -23,6 +23,7 @@ class Game
         EventReceiver                       event_receiver;
         Hero*                               character;
         scene::IAnimatedMeshSceneNode*      player;
+        bool playerWalk;
 
     public:
         Game();
@@ -46,7 +47,7 @@ class Game
         irr::gui::IGUIEnvironment* getEnvironment() {return environment;}
         Hero* getPlayer() { return this->character; }
 
-        void checkAndExec();
+        void update();
 };
 
 #endif

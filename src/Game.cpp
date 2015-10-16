@@ -59,7 +59,6 @@ void Game::loadPlayer()
 {
     this->character = new Hero;
 
-    //auto controls = getWASDControl();
 
     character->setNode(scene_manager->addAnimatedMeshSceneNode(scene_manager->getMesh("assets/ninja.b3d")));
     character->setPosition({1150,250,1150});
@@ -67,17 +66,18 @@ void Game::loadPlayer()
     character->getNode()->setMaterialFlag(video::EMF_LIGHTING, false);
     character->getNode()->setFrameLoop(206,250);
     
-    camera = scene_manager->addCameraSceneNodeFPS();
+    camera = scene_manager->addCameraSceneNode();
 
     irr::scene::ITriangleSelector* mapSelector = 0;
 
     mapSelector = scene_manager->createTerrainTriangleSelector(terrainSceneNode, 0);
     this->terrainSceneNode->setTriangleSelector(mapSelector);
     
-    irr::scene::ISceneNodeAnimator* scene_node_animator = scene_manager->createCollisionResponseAnimator(mapSelector, character->getNode(), irr::core::vector3df(1,1,1));
+    irr::scene::ISceneNodeAnimator* scene_node_animator = scene_manager->createCollisionResponseAnimator(mapSelector, character->getNode(), irr::core::vector3df(5,5,5));
 
     character->getNode()->addAnimator(scene_node_animator);
     scene_node_animator->drop();
+    
 }
 
 void Game::end()
@@ -87,21 +87,75 @@ void Game::end()
 
 void Game::updateCamera()
 {
-    core::vector3df posPlayer = player->getPosition();
-    core::vector3df posOffset(0.f,-100.f,100.f);
+    core::vector3df posPlayer = character->getPosition();
+    core::vector3df posOffset(0.f,-200.f,200.f);
     core::vector3df lookOffset(0.f,-30.f,0.f);
     camera->setPosition(posPlayer - posOffset);
     camera->setTarget(posPlayer - lookOffset);
 }
 
-void Game::checkAndExec()
-{
+void Game::update()
+{ 
+    float w = 0;
+    float a = 0;
+    float s = 0;
+    float d = 0;
+
+    if (event_receiver.GetKeyboardState(irr::KEY_KEY_W))
+        w = 1.f;
+    else
+        w = 0.f;
+    
     if (event_receiver.GetKeyboardState(irr::KEY_KEY_A))
+        a = 1.f;
+    else
+        a = 0.f;
+
+    if (event_receiver.GetKeyboardState(irr::KEY_KEY_D))
+        d = 1.f;
+    else
+        d = 0.f;
+    
+    if (event_receiver.GetKeyboardState(irr::KEY_KEY_S))
+        s = 1.f;
+    else
+        s = 0.f;
+
+    float directionKeys = w + a + s + d;
+    float totalAngles = d * 90.f + s * 180.f + a * 270.f;
+    float rotation = 0.f;
+    
+    if (a == 1.f && w == 1.f)
+        totalAngles += 360.f;
+
+    if (directionKeys != 0)
+        rotation = totalAngles / directionKeys;
+
+    irr::core::vector3df currentPos = character->getPosition();
+    character->setPosition(currentPos + irr::core::vector3df(2*(d-a), 0.f, 2*(w-s)));
+
+    if (directionKeys > 0 && !playerWalk)
     {
-        std::cout << "A press" << std::endl;
+        std::cout << "to walk" << std::endl;
+        playerWalk = true;
         character->getNode()->setFrameLoop(0, 13);
     }
+    else if (directionKeys == 0 && playerWalk)
+    {
+        std::cout << "to idle" << std::endl;
+        playerWalk = false;
+        character->getNode()->setFrameLoop(206,250);
+    }
 
-    if (event_receiver.GetKeyboardState(irr::KEY_KEY_B))
-        std::cout << "B press" << std::endl;
+    if (directionKeys > 0)
+        character->getNode()->setRotation(irr::core::vector3df(0.f, rotation, 0.f));
+
+/*    if (event_receiver.GetKeyboardState(irr::KEY_KEY_S))
+    {
+        std::cout << "Move back" << std::endl;
+        character->getNode()->setRotation(irr::core::vector3df(0,180,0));
+        character->getNode()->setFrameLoop(0, 13);
+        irr::core::vector3df currentPos = character->getPosition();
+        character->setPosition(currentPos + irr::core::vector3df(0, 0, -2));
+    }*/
 }

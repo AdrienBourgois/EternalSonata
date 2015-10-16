@@ -17,10 +17,10 @@ int main(int, char*[])
 
     while (game.getDevice()->run())
     {
-        game.checkAndExec();
+        game.update();
         if (game.getDevice()->isWindowActive())
         {
-            //updateCamera();
+            game.updateCamera();
             game.getDriver()->beginScene(true, true);
             game.getScene_manager()->drawAll();
             game.getDriver()->endScene();

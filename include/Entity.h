@@ -24,17 +24,17 @@ class Entity
 
         Entity& operator =(Entity const&) = default;
         
-        void setLife(int entity_life)                   { life = entity_life; };
+        void setLife(int entity_life)                           { life = entity_life; };
+        void setNode(irr::scene::IAnimatedMeshSceneNode* node)  { this->node = node; }
+        void setPosition(irr::core::vector3df position)         { this->node->setPosition(position); }
 
         int getLife() const                             { return life; };
+        irr::scene::IAnimatedMeshSceneNode* getNode()   { return this->node; }
+        const irr::core::vector3df getPosition()        { return this->node->getPosition(); }
 
-        void setNode(irr::scene::IAnimatedMeshSceneNode* node) { this->node = node; }
 
-        irr::scene::IAnimatedMeshSceneNode* getNode() { return this->node; }
 
-        const irr::core::vector3df getPosition() { return this->node->getPosition(); }
 
-        void setPosition(irr::core::vector3df position) { this->node->setPosition(position); }
 
 };
 

@@ -57,6 +57,8 @@ class Character : public Entity
         auto& getInventory()        {return inventory;}
 
         void debugCharacter();
+
+        void levelUp();
 };
 
 std::ostream& operator <<(std::ostream& os, Character const&);

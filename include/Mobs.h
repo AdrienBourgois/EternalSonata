@@ -6,10 +6,16 @@
 class Mobs : public Character
 {
     private:
-        unsigned int ID;
-
+        unsigned int enemy_ID;
+    
     public:
-        void attack()
+        static unsigned int ID;
+        
+        Mobs();
+        Mobs(Mobs const&) = default;
+        ~Mobs() = default;
+
+        auto getID()    {return enemy_ID;}
 }
 
 #endif

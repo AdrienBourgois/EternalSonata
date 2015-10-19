@@ -76,3 +76,8 @@ void Character::debugCharacter()
 
     inventory.showInventory();
 }
+
+void Character::levelUp()
+{
+    setLevel(level += 1);
+}

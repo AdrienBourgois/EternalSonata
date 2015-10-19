@@ -41,7 +41,7 @@ void Menu::showPauseMenu()
     }
 }
 
-void Menu::showPlayerMenu()
+/*void Menu::showPlayerMenu()
 {
     setWindowSize(driver->getScreenSize());
     this->env = this->device->getGUIEnvironment();
@@ -59,4 +59,4 @@ void Menu::quitMenu()
 {
     menuToBeDisplay = 0;
     env->clear();
-}
+}*/

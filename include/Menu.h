@@ -13,8 +13,8 @@ public:
 
     void showMainMenu();
     void showPauseMenu();
-    void showPlayerManu();
-    void quiMenu();
+    //void showPlayerManu();
+    //void quitMenu();
 
     void setWindowSize(core::dimension2d<u32> size) { if (this->windowSize != size) 
                                                         {windowSize = size;

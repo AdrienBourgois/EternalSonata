@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "EventReceiver.h"
 #include <cassert>
 #include <iostream>
 
@@ -158,4 +159,15 @@ void Game::update()
         irr::core::vector3df currentPos = character->getPosition();
         character->setPosition(currentPos + irr::core::vector3df(0, 0, -2));
     }*/
+
+    if (event_receiver.getIdButton() == GUI_ID_QUIT_BUTTON || event_receiver.getIdButton() == GUI_ID_PAUSE_QUIT_BUTTON)
+        device->closeDevice();
+
+    else if (event_receiver.getIdButton() == GUI_ID_PLAY_BUTTON || event_receiver.getIdButton() == GUI_ID_PAUSE_RESUME_BUTTON)
+        menu.closeMenu();
+
+    if (event_receiver.GetKeyboardState(irr::KEY_ESCAPE))
+        menu.showPauseMenu();
+     
+
 }

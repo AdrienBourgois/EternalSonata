@@ -13,13 +13,14 @@ public:
 
     void showMainMenu();
     void showPauseMenu();
+    void closeMenu() {menuToBeDisplay = 0;
+                      env->clear();}
     //void showPlayerManu();
     //void quitMenu();
 
     void setWindowSize(core::dimension2d<u32> size) { if (this->windowSize != size) 
                                                         {windowSize = size;
                                                         this->newSize = true;}}
-        
 
     void setResponsive() { this->window_width = this->windowSize.Width;
                            this->window_height = this->windowSize.Height;

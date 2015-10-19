@@ -15,6 +15,8 @@ int main(int, char*[])
     game.loadMap();
     game.loadPlayer();
 
+    game.getMenu().showMainMenu();
+
     while (game.getDevice()->run())
     {
         game.update();
@@ -23,6 +25,7 @@ int main(int, char*[])
             game.updateCamera();
             game.getDriver()->beginScene(true, true);
             game.getScene_manager()->drawAll();
+            game.getEnvironment()->drawAll();
             game.getDriver()->endScene();
         }
         else

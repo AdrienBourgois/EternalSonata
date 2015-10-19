@@ -46,6 +46,7 @@ class Game
         irr::scene::ISceneManager* getScene_manager() {return scene_manager;}
         irr::gui::IGUIEnvironment* getEnvironment() {return environment;}
         Hero* getPlayer() { return this->character; }
+        Menu getMenu() {return this->menu;}
 
         void update();
 };

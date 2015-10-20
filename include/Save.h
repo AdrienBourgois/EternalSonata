@@ -2,8 +2,10 @@
 #define __SAVE_INCLUDE__
 
 #include <map>
+#include "Armor.h"
 #include "myIrrlicht.h"
 #include "Hero.h"
+#include "Weapon.h"
 
 using namespace irr;
 
@@ -19,10 +21,6 @@ public:
     Hero loadPlayer();
     //void loadConfig();
     //void saveConfig();
-
-    //core::stringw getStat(const core::stringw& key) const;
-    //bool getStatAsBoolean(const core::stringw& key ) const;
-    //s32 getStatAsInteger(const core::stringw& key) const;
 
 private:
     IrrlichtDevice* NullDevice;

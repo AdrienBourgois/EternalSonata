@@ -76,7 +76,7 @@ void Game::loadPlayer()
 
     this->terrainSceneNode->setTriangleSelector(mapSelector);
     
-    irr::scene::ISceneNodeAnimator* scene_node_animator = scene_manager->createCollisionResponseAnimator(mapSelector, character->getNode(), character->getCollideRadius());
+    irr::scene::ISceneNodeAnimator* scene_node_animator = scene_manager->createCollisionResponseAnimator(mapSelector, character.getNode(), character.getCollideRadius());
 
     character.getNode()->addAnimator(scene_node_animator);
     scene_node_animator->drop();
@@ -98,20 +98,19 @@ void Game::updateCamera()
 
 void Game::update()
 {
-<<<<<<< HEAD
     //mobs.front().getCollideRadius();
 
-    if (mobs.front().getNode()->getTransformedBoundingBox().intersectsWithBox(character->getNode()->getTransformedBoundingBox()) && game_set)
+    if (mobs.front().getNode()->getTransformedBoundingBox().intersectsWithBox(character.getNode()->getTransformedBoundingBox()) && game_set)
     {
         std::cout << "Test collision 1" << std::endl;
     }
     
-    if (mobs[1].getNode()->getTransformedBoundingBox().intersectsWithBox(character->getNode()->getTransformedBoundingBox()) && game_set)
+    if (mobs[1].getNode()->getTransformedBoundingBox().intersectsWithBox(character.getNode()->getTransformedBoundingBox()) && game_set)
     {
         std::cout << "Test collision 2" << std::endl;
     }
     
-    if (mobs[2].getNode()->getTransformedBoundingBox().intersectsWithBox(character->getNode()->getTransformedBoundingBox()) && game_set)
+    if (mobs[2].getNode()->getTransformedBoundingBox().intersectsWithBox(character.getNode()->getTransformedBoundingBox()) && game_set)
     {
         std::cout << "Test collision 3" << std::endl;
     }  

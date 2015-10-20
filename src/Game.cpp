@@ -122,6 +122,11 @@ void Game::update()
     else
         s = 0.f;
 
+    float speed = 4.f;
+
+    if (event_receiver.GetKeyboardState(irr::KEY_LSHIFT))
+        speed = 1.f;
+
     float directionKeys = w + a + s + d;
     float totalAngles = d * 90.f + s * 180.f + a * 270.f;
     float rotation = 0.f;
@@ -133,32 +138,51 @@ void Game::update()
         rotation = totalAngles / directionKeys;
 
     irr::core::vector3df currentPos = character->getPosition();
-    character->setPosition(currentPos + irr::core::vector3df(2*(d-a), 0.f, 2*(w-s)));
+    character->setPosition(currentPos + irr::core::vector3df(speed*(d-a), 0.f, speed*(w-s)));
 
     if (directionKeys > 0 && !playerWalk)
     {
-        std::cout << "to walk" << std::endl;
         playerWalk = true;
         character->getNode()->setFrameLoop(0, 13);
+        character->getNode()->setLoopMode(true);
     }
     else if (directionKeys == 0 && playerWalk)
     {
-        std::cout << "to idle" << std::endl;
         playerWalk = false;
         character->getNode()->setFrameLoop(206,250);
+        character->getNode()->setLoopMode(true);
+    }
+    else if (event_receiver.GetKeyboardState(irr::KEY_LSHIFT) && directionKeys > 0 && !playerStealth)
+    {
+        character->getNode()->setFrameLoop(14, 29);
+        character->getNode()->setLoopMode(true);
+        playerWalk = true;
+        playerStealth = true;
+    }
+    else if (!event_receiver.GetKeyboardState(irr::KEY_LSHIFT) && directionKeys > 0 && playerStealth)
+    {
+        character->getNode()->setFrameLoop(0, 13);
+        character->getNode()->setLoopMode(true);
+        playerStealth = false;
+    }
+
+    if (event_receiver.GetKeyboardState(irr::KEY_SPACE) && !playerAttacked)
+    {
+        playerAttacked = true;
+        character->getNode()->setFrameLoop(133, 144);  
+        character->getNode()->setLoopMode(false);
+    }
+
+    if (!event_receiver.GetKeyboardState(irr::KEY_SPACE))
+    {
+        playerAttacked = false;
     }
 
     if (directionKeys > 0)
-        character->getNode()->setRotation(irr::core::vector3df(0.f, rotation, 0.f));
-
-/*    if (event_receiver.GetKeyboardState(irr::KEY_KEY_S))
     {
-        std::cout << "Move back" << std::endl;
-        character->getNode()->setRotation(irr::core::vector3df(0,180,0));
-        character->getNode()->setFrameLoop(0, 13);
-        irr::core::vector3df currentPos = character->getPosition();
-        character->setPosition(currentPos + irr::core::vector3df(0, 0, -2));
-    }*/
+        character->getNode()->setRotation(irr::core::vector3df(0.f, rotation, 0.f));
+       character->setPosition(currentPos + irr::core::vector3df(0, 0, -2));
+    }
 
     if (event_receiver.getIdButton() == GUI_ID_QUIT_BUTTON || event_receiver.getIdButton() == GUI_ID_PAUSE_QUIT_BUTTON)
         device->closeDevice();
@@ -168,6 +192,4 @@ void Game::update()
 
     if (event_receiver.GetKeyboardState(irr::KEY_ESCAPE))
         menu.showPauseMenu();
-     
-
 }

@@ -24,6 +24,8 @@ class Game
         Hero*                               character;
         scene::IAnimatedMeshSceneNode*      player;
         bool playerWalk;
+        bool playerStealth;
+        bool playerAttacked;
 
     public:
         Game();

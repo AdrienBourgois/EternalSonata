@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "Direction.h"
 #include <iostream>
 
 unsigned int Entity::ID = 0;
@@ -6,12 +7,17 @@ unsigned int Entity::ID = 0;
 Entity::Entity()
 {
     ID += 1;
+    life = 10;
+    animationState = NONE;
+    stealth = false;
 }
 
 Entity::Entity(unsigned int entity_life)
 {
     life = entity_life;
     ID += 1;
+    animationState = NONE;
+    stealth = false;
 }
 
 Entity::~Entity()
@@ -29,55 +35,143 @@ ostream& operator <<(ostream& os, Entity& given_entity)
     return os;
 }
 
-void Entity::moveRight(bool diagonalUP, bool diagonalDOWN)
+void Entity::moveForward(float speed)
 {
-    auto currentPos = node->getPosition();
-    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(2.f, 0.f, 0.f) );
-    
-    if (diagonalUP)
-        node->setRotation(irr::core::vector3d<irr::f32>(0.f, 45.f+360.f, 0.f));
-    
-    else if (diagonalDOWN)
-        node->setRotation(irr::core::vector3d<irr::f32>(0.f, 135.f+360.f, 0.f));
-
+    if (stealth)
+        animationState = STEALTH;
     else
-        node->setRotation(irr::core::vector3d<irr::f32>(0.f, 90.f+360.f, 0.f));
-}
+        animationState = WALKING;
 
-void Entity::moveLeft(bool diagonalUP, bool diagonalDOWN)
-{
     auto currentPos = node->getPosition();
-    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(-2.f, 0.f, 0.f));
-
-    if (diagonalUP)
-        node->setRotation(irr::core::vector3d<irr::f32>(0.f, 315.f, 0.f));
-    
-    else if (diagonalDOWN)
-        node->setRotation(irr::core::vector3d<irr::f32>(0.f, 225.f, 0.f));
-
-    else
-        node->setRotation(irr::core::vector3d<irr::f32>(0.f, 270.f, 0.f));
-}
-
-void Entity::moveForward()
-{
-    auto currentPos = node->getPosition();
-    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(0.f, 0.f, 2.f));
+    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(0.f, 0.f, speed));
     node->setRotation(irr::core::vector3d<irr::f32>(0.f, 0.f, 0.f));
-
 }
-void Entity::moveBackward()
-{
-    auto currentPos = node->getPosition();
-    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(0.f, 0.f, -2.f));
-    node->setRotation(irr::core::vector3d<irr::f32>(0.f, 180.f, 0.f));
 
+void Entity::moveBackward(float speed)
+{
+    if (stealth)
+        animationState = STEALTH;
+    else
+        animationState = WALKING;
+
+    auto currentPos = node->getPosition();
+    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(0.f, 0.f, -speed));
+    node->setRotation(irr::core::vector3d<irr::f32>(0.f, 180.f, 0.f));
+}
+
+void Entity::moveLeft(float speed)
+{
+    if (stealth)
+        animationState = STEALTH;
+    else
+        animationState = WALKING;
+
+    auto currentPos = node->getPosition();
+    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(-speed, 0.f, 0.f));
+    node->setRotation(irr::core::vector3d<irr::f32>(0.f, -90.f, 0.f));
+}
+
+void Entity::moveRight(float speed)
+{
+    if (stealth)
+        animationState = STEALTH;
+    else
+        animationState = WALKING;
+
+    auto currentPos = node->getPosition();
+    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(speed, 0.f, 0.f) );
+    node->setRotation(irr::core::vector3d<irr::f32>(0.f, 90.f, 0.f));
+}
+
+void Entity::moveUpperLeft(float speed)
+{
+    if (stealth)
+        animationState = STEALTH;
+    else
+        animationState = WALKING;
+
+    auto currentPos = node->getPosition();
+    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(-speed, 0.f, speed) );
+    node->setRotation(irr::core::vector3d<irr::f32>(0.f, -45.f, 0.f));
+}
+
+void Entity::moveUpperRight(float speed)
+{
+    if (stealth)
+        animationState = STEALTH;
+    else
+        animationState = WALKING;
+
+    auto currentPos = node->getPosition();
+    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(speed, 0.f, speed) );
+    node->setRotation(irr::core::vector3d<irr::f32>(0.f, 45.f, 0.f));
+}
+
+void Entity::moveDownLeft(float speed)
+{
+    if (stealth)
+        animationState = STEALTH;
+    else
+        animationState = WALKING;
+
+    auto currentPos = node->getPosition();
+    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(-speed, 0.f, -speed) );
+    node->setRotation(irr::core::vector3d<irr::f32>(0.f, -135.f, 0.f));
+}
+
+void Entity::moveDownRigth(float speed)
+{
+    if (stealth)
+        animationState = STEALTH;
+    else
+        animationState = WALKING;
+
+    auto currentPos = node->getPosition();
+    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(speed, 0.f, -speed) );
+    node->setRotation(irr::core::vector3d<irr::f32>(0.f, 135.f, 0.f));
 }
 
 void Entity::idle()
 {
     auto currentPos = node->getPosition();
     node->setPosition(currentPos);
+    animationState = IDLE;
+
+}
+
+void Entity::move(int direction, float speed)
+{
+    switch (direction)
+    {
+        case NONE:           idle();
+                             break;
+
+        case UP:             moveForward(speed);
+                             break;
+
+        case DOWN:           moveBackward(speed);
+                             break;
+
+        case LEFT:           moveLeft(speed);
+                             break;
+
+        case RIGHT:          moveRight(speed);
+                             break;
+
+        case UPPER_RIGHT:    moveUpperRight(speed);
+                             break;
+
+        case UPPER_LEFT:     moveUpperLeft(speed);
+                             break;
+
+        case DOWN_RIGHT:     moveDownRigth(speed);
+                             break;
+
+        case DOWN_LEFT:      moveDownLeft(speed);
+                             break;
+
+        default:             break;
+    }
 }
 
 const irr::core::vector3df Entity::getCollideRadius()

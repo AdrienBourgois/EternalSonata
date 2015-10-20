@@ -40,7 +40,7 @@ class EventReceiver : public irr::IEventReceiver
         ~EventReceiver() = default;
 
         EventReceiver(EventReceiver const&) = delete;
-        EventReceiver& operator =(EventReceiver const&) = delete; 
+        EventReceiver& operator =(EventReceiver const&) = default; 
 
         virtual bool OnEvent(const irr::SEvent&);
 

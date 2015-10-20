@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "EventReceiver.h"
+#include "Direction.h"
 #include <cassert>
 #include <iostream>
 
@@ -18,6 +19,9 @@ Game::Game()
     menu.setDevice(device);
     this->mapSelector = 0;
     this->game_set = false;
+    character.setEventReceiver(&event_receiver);
+
+
 }
 
 void Game::loadMap()
@@ -62,14 +66,11 @@ std::array<irr::SKeyMap, 6> Game::getWASDControl()
 
 void Game::loadPlayer()
 {
-    this->character = new Hero;
-    
-
-    character->setNode(scene_manager->addAnimatedMeshSceneNode(this->meshes["ninja"]));
-    character->setPosition({1150,250,1150});
-    character->getNode()->setScale({7,7,7});
-    character->getNode()->setMaterialFlag(video::EMF_LIGHTING, false);
-    character->getNode()->setFrameLoop(206,250);
+    character.setNode(scene_manager->addAnimatedMeshSceneNode(scene_manager->getMesh("assets/ninja.b3d")));
+    character.setPosition({1150,250,1150});
+    character.getNode()->setScale({7,7,7});
+    character.getNode()->setMaterialFlag(video::EMF_LIGHTING, false);
+    character.getNode()->setFrameLoop(206,250);
     
     camera = scene_manager->addCameraSceneNode();
 
@@ -77,7 +78,7 @@ void Game::loadPlayer()
     
     irr::scene::ISceneNodeAnimator* scene_node_animator = scene_manager->createCollisionResponseAnimator(mapSelector, character->getNode(), character->getCollideRadius());
 
-    character->getNode()->addAnimator(scene_node_animator);
+    character.getNode()->addAnimator(scene_node_animator);
     scene_node_animator->drop();
 }
 
@@ -88,7 +89,7 @@ void Game::end()
 
 void Game::updateCamera()
 {
-    core::vector3df posPlayer = character->getPosition();
+    core::vector3df posPlayer = character.getPosition();
     core::vector3df posOffset(0.f,-200.f,200.f);
     core::vector3df lookOffset(0.f,-30.f,0.f);
     camera->setPosition(posPlayer - posOffset);
@@ -97,6 +98,7 @@ void Game::updateCamera()
 
 void Game::update()
 {
+<<<<<<< HEAD
     //mobs.front().getCollideRadius();
 
     if (mobs.front().getNode()->getTransformedBoundingBox().intersectsWithBox(character->getNode()->getTransformedBoundingBox()) && game_set)
@@ -115,49 +117,8 @@ void Game::update()
     }  
 
     game_set = true;
-
-    if (event_receiver.GetKeyboardState(irr::KEY_KEY_W))
-    {
-        character->moveForward();
-    }
-    else
-        character->idle();
-
-    /**PLAYER MOVE LEFT OR LEFT + UP/DOWN **/
-    {
-        if (event_receiver.GetKeyboardState(irr::KEY_KEY_A))
-            character->moveLeft(false, false);
-        
-        else if (event_receiver.GetKeyboardState(irr::KEY_KEY_A) && event_receiver.GetKeyboardState(irr::KEY_KEY_W))
-            character->moveLeft(true, false);
-
-        else if (event_receiver.GetKeyboardState(irr::KEY_KEY_A) && event_receiver.GetKeyboardState(irr::KEY_KEY_S))
-            character->moveLeft(false, true);
-
-        else
-            character->idle();
-    }
-
-    /** PLAYER MOVING RIGHT OR RIGHT + UP/DOWN **/
-    {
-        if (event_receiver.GetKeyboardState(irr::KEY_KEY_D))
-            character->moveRight(false, false);
-        
-        else if (event_receiver.GetKeyboardState(irr::KEY_KEY_D) && event_receiver.GetKeyboardState(irr::KEY_KEY_W))
-            character->moveRight(true, false);
-
-        else if (event_receiver.GetKeyboardState(irr::KEY_KEY_D) && event_receiver.GetKeyboardState(irr::KEY_KEY_S))
-            character->moveRight(false, true);
-
-        else
-            character->idle();
-    }
+    character.update();
     
-    if (event_receiver.GetKeyboardState(irr::KEY_KEY_S))
-        character->moveBackward();
-    else
-        character->idle();
-
     if (event_receiver.getIdButton() == GUI_ID_QUIT_BUTTON || event_receiver.getIdButton() == GUI_ID_PAUSE_QUIT_BUTTON)
         device->closeDevice();
 

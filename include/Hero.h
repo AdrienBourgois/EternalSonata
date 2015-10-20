@@ -9,9 +9,11 @@ class Hero : public Character
 
 
     public:
-        Hero() = default;
+        Hero();
         ~Hero() = default;
         Hero(Hero const&) = default;
+
+        virtual void update() override;
 };
 
 #endif

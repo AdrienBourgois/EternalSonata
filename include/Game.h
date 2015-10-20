@@ -11,24 +11,24 @@
 class Game
 {
     private:
-        irr::video::IVideoDriver*                   driver;        /* Default: OPENGL */
-        irr::scene::ISceneManager*                  scene_manager;
-        irr::IrrlichtDevice*                        device;
-        irr::gui::IGUIEnvironment*                  environment;
-        Menu                                        menu;
+        irr::video::IVideoDriver*                           driver;        /* Default: OPENGL */
+        irr::scene::ISceneManager*                          scene_manager;
+        irr::IrrlichtDevice*                                device;
+        irr::gui::IGUIEnvironment*                          environment;
+        Menu                                                menu;
 
-        irr::scene::IMesh*                          terrain; 
-        scene::ITerrainSceneNode*                   terrainSceneNode;
+        irr::scene::IMesh*                                  terrain; 
+        scene::ITerrainSceneNode*                           terrainSceneNode;
+        Hero                                                character;
+        scene::IAnimatedMeshSceneNode*                      player;
 
-        irr::scene::ICameraSceneNode*               camera;
-        EventReceiver                               event_receiver;
-        Hero*                                       character;
-        scene::IAnimatedMeshSceneNode*              player;
-        std::vector<Mobs>                           mobs;
-        std::map<std::string, irr::scene::IAnimatedMesh*> meshes;
+        irr::scene::ICameraSceneNode*                       camera;
+        EventReceiver                                       event_receiver;
+        std::vector<Mobs>                                   mobs;
+        std::map<std::string, irr::scene::IAnimatedMesh*>   meshes;
         irr::scene::ITriangleSelector* mapSelector;
 
-        bool game_set;
+        bool                                                game_set;
 
     public:
         Game();
@@ -52,7 +52,7 @@ class Game
         irr::IrrlichtDevice* getDevice()                {return device;}
         irr::scene::ISceneManager* getScene_manager()   {return scene_manager;}
         irr::gui::IGUIEnvironment* getEnvironment()     {return environment;}
-        Hero* getPlayer()                               {return this->character; }
+        Hero& getPlayer()                               {return this->character; }
         Menu getMenu()                                  {return this->menu;}
 
         void update();

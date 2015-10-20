@@ -9,6 +9,8 @@
 #include "Stats.h"
 #include "Entity.h"
 #include "Inventory.h"
+#include "EventReceiver.h"
+
 
 class Character : public Entity
 {
@@ -20,7 +22,11 @@ class Character : public Entity
         Armor               armor;
         Inventory           inventory;
 
+    protected:
+        EventReceiver*      event_receiver;
+
     public:
+
         Character();
         Character(Character const&) = default;
         Character(Stats s)  :name("Inideva" ), level(1), stats(s){};
@@ -28,19 +34,20 @@ class Character : public Entity
 
         Character& operator =(Character const&) = default;
 
-        void setName(std::string n)         {name = n;}
-        void setLevel(unsigned int i)       {level = i;}
-        void setStrength(int s)             {stats.strength = s;}
-        void setDexterity(int d)            {stats.dexterity = d;}
-        void setIntelligence(int i)         {stats.intelligence = i;}
-        void setSpeed(int s)                {stats.speed = s;}
-        void setResistance(int r)           {stats.resistance = r;}
-        void setLuck(int l)                 {stats.luck = l;}
-        void setSpirit(int s)               {stats.spirit = s;}
-        void setAgility(int a)              {stats.agility = a;}
-        void setWeapon(Weapon& w)           {weapon = w;}
-        void setArmor(Armor& a)             {armor = a;}
-        void setInventory(Inventory& i)     {inventory = i;}
+        void setName(std::string n)                 {name = n;}
+        void setLevel(unsigned int i)               {level = i;}
+        void setStrength(int s)                     {stats.strength = s;}
+        void setDexterity(int d)                    {stats.dexterity = d;}
+        void setIntelligence(int i)                 {stats.intelligence = i;}
+        void setSpeed(int s)                        {stats.speed = s;}
+        void setResistance(int r)                   {stats.resistance = r;}
+        void setLuck(int l)                         {stats.luck = l;}
+        void setSpirit(int s)                       {stats.spirit = s;}
+        void setAgility(int a)                      {stats.agility = a;}
+        void setWeapon(Weapon& w)                   {weapon = w;}
+        void setArmor(Armor& a)                     {armor = a;}
+        void setInventory(Inventory& i)             {inventory = i;}
+        void setEventReceiver(EventReceiver* er)    {event_receiver = er;}
 
         auto& getName() const       {return name;}
         auto getLevel() const       {return level;}
@@ -59,6 +66,9 @@ class Character : public Entity
         void debugCharacter();
 
         void levelUp();
+        
+        virtual void update() = 0;
+
 };
 
 std::ostream& operator <<(std::ostream& os, Character const&);

@@ -16,6 +16,8 @@ class Mobs : public Character
         ~Mobs() = default;
 
         auto getID()    {return enemy_ID;}
+
+        virtual void update() = 0;
 };
 
 #endif

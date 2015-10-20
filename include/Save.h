@@ -1,7 +1,9 @@
 #ifndef __SAVE_INCLUDE__
 #define __SAVE_INCLUDE__
 
+#include <map>
 #include "myIrrlicht.h"
+#include "Hero.h"
 
 using namespace irr;
 
@@ -9,11 +11,12 @@ class SaveManager
 {
 public:
     SaveManager(const core::stringw& pathFile);
+    SaveManager() = default;
     ~SaveManager() = default;
 
     void setPathFile(const core::stringw& newPathFile) {this->pathFile = newPathFile;}
     //void savePlayer();
-    bool loadPlayer();
+    Hero loadPlayer();
     //void loadConfig();
     //void saveConfig();
 
@@ -27,7 +30,6 @@ private:
     io::IXMLWriter* xmlWriter;
     core::stringw pathFile;
 
-    core::map<core::stringw, core::stringw> PlayerMap;
     core::map<core::stringw, core::stringw> ConfigMap;
     core::map<core::stringw, core::stringw> KeyMap;
 };

@@ -8,11 +8,14 @@ SaveManager::SaveManager(const core::stringw& savePathFile)
 {
     pathFile = savePathFile;
     NullDevice = createDevice(irr::video::EDT_NULL);
-
 }
 
-bool SaveManager::loadPlayer()
+Hero SaveManager::loadPlayer()
 {
+    Hero player;
+
+    core::map<core::stringc, core::stringc> PlayerMap;
+
     xmlReader = NullDevice->getFileSystem()->createXMLReader(pathFile);
 
     PlayerMap.insert(L"agility", L"0");
@@ -28,7 +31,7 @@ bool SaveManager::loadPlayer()
     if (!NullDevice)
     {
         std::cout << "Any device !" << std::endl;
-        return false;
+        return player;
     }
 
     const core::stringw statTag(L"stat");
@@ -61,8 +64,20 @@ bool SaveManager::loadPlayer()
         }
     }
 
+    player.setAgility       (core::strtol10((PlayerMap.find(L"agility")->getValue()).c_str()));
+    player.setDexterity     (core::strtol10((PlayerMap.find(L"dexterity")->getValue()).c_str()));
+    player.setIntelligence  (core::strtol10((PlayerMap.find("intelligence")->getValue()).c_str()));
+    player.setLuck          (core::strtol10((PlayerMap.find("luck")->getValue()).c_str()));
+    player.setName          ((PlayerMap.find("name")->getValue()).c_str());
+    player.setResistance    (core::strtol10((PlayerMap.find("resistance")->getValue()).c_str()));
+    player.setSpeed         (core::strtol10((PlayerMap.find("speed")->getValue()).c_str()));
+    player.setSpirit        (core::strtol10((PlayerMap.find("spirit")->getValue()).c_str()));
+    player.setStrength      (core::strtol10((PlayerMap.find("strength")->getValue()).c_str()));
+
+    player.debugCharacter();
+
     std::cout << "File loaded" << std::endl;
-    return true;
+    return player;
 }
 
 //core::stringw SaveManager::getStat(const core::stringw& key) const

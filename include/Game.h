@@ -23,9 +23,6 @@ class Game
         EventReceiver                       event_receiver;
         Hero*                               character;
         scene::IAnimatedMeshSceneNode*      player;
-        bool playerWalk;
-        bool playerStealth;
-        bool playerAttacked;
 
     public:
         Game();
@@ -43,12 +40,12 @@ class Game
 
         void updateCamera();
 
-        irr::video::IVideoDriver* getDriver() {return driver;}
-        irr::IrrlichtDevice* getDevice() {return device;}
-        irr::scene::ISceneManager* getScene_manager() {return scene_manager;}
-        irr::gui::IGUIEnvironment* getEnvironment() {return environment;}
-        Hero* getPlayer() { return this->character; }
-        Menu getMenu() {return this->menu;}
+        irr::video::IVideoDriver* getDriver()           {return driver;}
+        irr::IrrlichtDevice* getDevice()                {return device;}
+        irr::scene::ISceneManager* getScene_manager()   {return scene_manager;}
+        irr::gui::IGUIEnvironment* getEnvironment()     {return environment;}
+        Hero* getPlayer()                               {return this->character; }
+        Menu getMenu()                                  {return this->menu;}
 
         void update();
 };

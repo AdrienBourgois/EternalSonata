@@ -28,3 +28,55 @@ ostream& operator <<(ostream& os, Entity& given_entity)
 
     return os;
 }
+
+void Entity::moveRight(bool diagonalUP, bool diagonalDOWN)
+{
+    auto currentPos = node->getPosition();
+    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(2.f, 0.f, 0.f) );
+    
+    if (diagonalUP)
+        node->setRotation(irr::core::vector3d<irr::f32>(0.f, 45.f+360.f, 0.f));
+    
+    else if (diagonalDOWN)
+        node->setRotation(irr::core::vector3d<irr::f32>(0.f, 135.f+360.f, 0.f));
+
+    else
+        node->setRotation(irr::core::vector3d<irr::f32>(0.f, 90.f+360.f, 0.f));
+}
+
+void Entity::moveLeft(bool diagonalUP, bool diagonalDOWN)
+{
+    auto currentPos = node->getPosition();
+    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(-2.f, 0.f, 0.f));
+
+    if (diagonalUP)
+        node->setRotation(irr::core::vector3d<irr::f32>(0.f, 315.f, 0.f));
+    
+    else if (diagonalDOWN)
+        node->setRotation(irr::core::vector3d<irr::f32>(0.f, 225.f, 0.f));
+
+    else
+        node->setRotation(irr::core::vector3d<irr::f32>(0.f, 270.f, 0.f));
+}
+
+void Entity::moveForward()
+{
+    auto currentPos = node->getPosition();
+    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(0.f, 0.f, 2.f));
+    node->setRotation(irr::core::vector3d<irr::f32>(0.f, 0.f, 0.f));
+
+}
+void Entity::moveBackward()
+{
+    auto currentPos = node->getPosition();
+    node->setPosition(currentPos + irr::core::vector3d<irr::f32>(0.f, 0.f, -2.f));
+    node->setRotation(irr::core::vector3d<irr::f32>(0.f, 180.f, 0.f));
+
+}
+
+void Entity::idle()
+{
+    auto currentPos = node->getPosition();
+    node->setPosition(currentPos);
+}
+

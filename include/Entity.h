@@ -32,6 +32,12 @@ class Entity
         irr::scene::IAnimatedMeshSceneNode* getNode()   { return this->node; }
         const irr::core::vector3df getPosition()        { return this->node->getPosition(); }
 
+        void moveRight(bool diagonalUP, bool diagonalDOWN);
+        void moveLeft(bool diagonalUP, bool diagonalDOWN);
+        void moveForward();
+        void moveBackward();
+        void idle();
+
 
 
 

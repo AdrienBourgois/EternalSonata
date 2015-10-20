@@ -96,93 +96,48 @@ void Game::updateCamera()
 }
 
 void Game::update()
-{ 
-    float w = 0;
-    float a = 0;
-    float s = 0;
-    float d = 0;
-
+{
     if (event_receiver.GetKeyboardState(irr::KEY_KEY_W))
-        w = 1.f;
+    {
+        character->moveForward();
+    }
     else
-        w = 0.f;
-    
-    if (event_receiver.GetKeyboardState(irr::KEY_KEY_A))
-        a = 1.f;
-    else
-        a = 0.f;
+        character->idle();
 
-    if (event_receiver.GetKeyboardState(irr::KEY_KEY_D))
-        d = 1.f;
-    else
-        d = 0.f;
+    /**PLAYER MOVE LEFT OR LEFT + UP/DOWN **/
+    {
+        if (event_receiver.GetKeyboardState(irr::KEY_KEY_A))
+            character->moveLeft(false, false);
+        
+        else if (event_receiver.GetKeyboardState(irr::KEY_KEY_A) && event_receiver.GetKeyboardState(irr::KEY_KEY_W))
+            character->moveLeft(true, false);
+
+        else if (event_receiver.GetKeyboardState(irr::KEY_KEY_A) && event_receiver.GetKeyboardState(irr::KEY_KEY_S))
+            character->moveLeft(false, true);
+
+        else
+            character->idle();
+    }
+
+    /** PLAYER MOVING RIGHT OR RIGHT + UP/DOWN **/
+    {
+        if (event_receiver.GetKeyboardState(irr::KEY_KEY_D))
+            character->moveRight(false, false);
+        
+        else if (event_receiver.GetKeyboardState(irr::KEY_KEY_D) && event_receiver.GetKeyboardState(irr::KEY_KEY_W))
+            character->moveRight(true, false);
+
+        else if (event_receiver.GetKeyboardState(irr::KEY_KEY_D) && event_receiver.GetKeyboardState(irr::KEY_KEY_S))
+            character->moveRight(false, true);
+
+        else
+            character->idle();
+    }
     
     if (event_receiver.GetKeyboardState(irr::KEY_KEY_S))
-        s = 1.f;
+        character->moveBackward();
     else
-        s = 0.f;
-
-    float speed = 4.f;
-
-    if (event_receiver.GetKeyboardState(irr::KEY_LSHIFT))
-        speed = 1.f;
-
-    float directionKeys = w + a + s + d;
-    float totalAngles = d * 90.f + s * 180.f + a * 270.f;
-    float rotation = 0.f;
-    
-    if (a == 1.f && w == 1.f)
-        totalAngles += 360.f;
-
-    if (directionKeys != 0)
-        rotation = totalAngles / directionKeys;
-
-    irr::core::vector3df currentPos = character->getPosition();
-    character->setPosition(currentPos + irr::core::vector3df(speed*(d-a), 0.f, speed*(w-s)));
-
-    if (directionKeys > 0 && !playerWalk)
-    {
-        playerWalk = true;
-        character->getNode()->setFrameLoop(0, 13);
-        character->getNode()->setLoopMode(true);
-    }
-    else if (directionKeys == 0 && playerWalk)
-    {
-        playerWalk = false;
-        character->getNode()->setFrameLoop(206,250);
-        character->getNode()->setLoopMode(true);
-    }
-    else if (event_receiver.GetKeyboardState(irr::KEY_LSHIFT) && directionKeys > 0 && !playerStealth)
-    {
-        character->getNode()->setFrameLoop(14, 29);
-        character->getNode()->setLoopMode(true);
-        playerWalk = true;
-        playerStealth = true;
-    }
-    else if (!event_receiver.GetKeyboardState(irr::KEY_LSHIFT) && directionKeys > 0 && playerStealth)
-    {
-        character->getNode()->setFrameLoop(0, 13);
-        character->getNode()->setLoopMode(true);
-        playerStealth = false;
-    }
-
-    if (event_receiver.GetKeyboardState(irr::KEY_SPACE) && !playerAttacked)
-    {
-        playerAttacked = true;
-        character->getNode()->setFrameLoop(133, 144);  
-        character->getNode()->setLoopMode(false);
-    }
-
-    if (!event_receiver.GetKeyboardState(irr::KEY_SPACE))
-    {
-        playerAttacked = false;
-    }
-
-    if (directionKeys > 0)
-    {
-        character->getNode()->setRotation(irr::core::vector3df(0.f, rotation, 0.f));
-       character->setPosition(currentPos + irr::core::vector3df(0, 0, -2));
-    }
+        character->idle();
 
     if (event_receiver.getIdButton() == GUI_ID_QUIT_BUTTON || event_receiver.getIdButton() == GUI_ID_PAUSE_QUIT_BUTTON)
         device->closeDevice();

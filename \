@@ -11,24 +11,21 @@
 class Game
 {
     private:
-        irr::video::IVideoDriver*                   driver;        /* Default: OPENGL */
-        irr::scene::ISceneManager*                  scene_manager;
-        irr::IrrlichtDevice*                        device;
-        irr::gui::IGUIEnvironment*                  environment;
-        Menu                                        menu;
+        irr::video::IVideoDriver*           driver;        /* Default: OPENGL */
+        irr::scene::ISceneManager*          scene_manager;
+        irr::IrrlichtDevice*                device;
+        irr::gui::IGUIEnvironment*          environment;
+        Menu                                menu;
 
-        irr::scene::IMesh*                          terrain; 
-        scene::ITerrainSceneNode*                   terrainSceneNode;
+        irr::scene::IMesh*                  terrain; 
+        scene::ITerrainSceneNode*           terrainSceneNode;
 
-        irr::scene::ICameraSceneNode*               camera;
-        EventReceiver                               event_receiver;
-        Hero*                                       character;
-        scene::IAnimatedMeshSceneNode*              player;
-        std::vector<Mobs>                           mobs;
-        std::map<std::string, irr::scene::IAnimatedMesh*> meshes;
-        irr::scene::ITriangleSelector* mapSelector;
-
-        bool game_set;
+        irr::scene::ICameraSceneNode*       camera;
+        EventReceiver                       event_receiver;
+        Hero*                               character;
+        scene::IAnimatedMeshSceneNode*      player;
+        vector<Mobs>                        mobs;
+        bool                                playerSet;
 
     public:
         Game();
@@ -41,7 +38,6 @@ class Game
         
         void loadMap();
         void loadPlayer();
-        void loadMeshes();
         void addMob(irr::core::vector3df pos);
         std::array<irr::SKeyMap, 6> getWASDControl();
         void end();

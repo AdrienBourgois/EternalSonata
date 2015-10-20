@@ -80,3 +80,11 @@ void Entity::idle()
     node->setPosition(currentPos);
 }
 
+const irr::core::vector3df Entity::getCollideRadius()
+{
+    const irr::core::aabbox3d<irr::f32> box = this->node->getTransformedBoundingBox();
+    irr::core::vector3df radius = box.MaxEdge - box.getCenter();
+    std::cout << radius.X << " " << radius.Y << " " << radius.Z << std::endl;
+
+    return radius;
+}

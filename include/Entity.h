@@ -31,6 +31,7 @@ class Entity
         int getLife() const                             { return life; };
         irr::scene::IAnimatedMeshSceneNode* getNode()   { return this->node; }
         const irr::core::vector3df getPosition()        { return this->node->getPosition(); }
+        const irr::core::vector3df getCollideRadius();
 
         void moveRight(bool diagonalUP, bool diagonalDOWN);
         void moveLeft(bool diagonalUP, bool diagonalDOWN);

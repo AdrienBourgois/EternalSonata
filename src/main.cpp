@@ -12,8 +12,12 @@ int main(int, char*[])
 {
     Game game;
 
+    game.loadMeshes();
     game.loadMap();
     game.loadPlayer();
+    game.addMob({1150,1250,1500});
+    game.addMob({1050,1250,1500});
+    game.addMob({1250,1250,1500});
 
     game.getMenu().showMainMenu();
 

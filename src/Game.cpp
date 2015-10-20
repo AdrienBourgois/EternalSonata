@@ -14,8 +14,10 @@ Game::Game()
     driver = device->getVideoDriver();
     scene_manager = device->getSceneManager();
     environment = device->getGUIEnvironment();
-
     menu.setDevice(device);
+    menu.setDevice(device);
+    this->mapSelector = 0;
+    this->game_set = false;
 }
 
 void Game::loadMap()
@@ -28,6 +30,8 @@ void Game::loadMap()
     terrainSceneNode->scaleTexture(1.0f, 20.0f);
 
     terrain = terrainSceneNode->getMesh();
+
+    this->mapSelector = scene_manager->createTerrainTriangleSelector(terrainSceneNode, 0);
 }
 
 std::array<irr::SKeyMap, 6> Game::getWASDControl()
@@ -59,9 +63,9 @@ std::array<irr::SKeyMap, 6> Game::getWASDControl()
 void Game::loadPlayer()
 {
     this->character = new Hero;
+    
 
-
-    character->setNode(scene_manager->addAnimatedMeshSceneNode(scene_manager->getMesh("assets/ninja.b3d")));
+    character->setNode(scene_manager->addAnimatedMeshSceneNode(this->meshes["ninja"]));
     character->setPosition({1150,250,1150});
     character->getNode()->setScale({7,7,7});
     character->getNode()->setMaterialFlag(video::EMF_LIGHTING, false);
@@ -69,16 +73,12 @@ void Game::loadPlayer()
     
     camera = scene_manager->addCameraSceneNode();
 
-    irr::scene::ITriangleSelector* mapSelector = 0;
-
-    mapSelector = scene_manager->createTerrainTriangleSelector(terrainSceneNode, 0);
     this->terrainSceneNode->setTriangleSelector(mapSelector);
     
-    irr::scene::ISceneNodeAnimator* scene_node_animator = scene_manager->createCollisionResponseAnimator(mapSelector, character->getNode(), irr::core::vector3df(5,5,5));
+    irr::scene::ISceneNodeAnimator* scene_node_animator = scene_manager->createCollisionResponseAnimator(mapSelector, character->getNode(), character->getCollideRadius());
 
     character->getNode()->addAnimator(scene_node_animator);
     scene_node_animator->drop();
-    
 }
 
 void Game::end()
@@ -97,6 +97,25 @@ void Game::updateCamera()
 
 void Game::update()
 {
+    //mobs.front().getCollideRadius();
+
+    if (mobs.front().getNode()->getTransformedBoundingBox().intersectsWithBox(character->getNode()->getTransformedBoundingBox()) && game_set)
+    {
+        std::cout << "Test collision 1" << std::endl;
+    }
+    
+    if (mobs[1].getNode()->getTransformedBoundingBox().intersectsWithBox(character->getNode()->getTransformedBoundingBox()) && game_set)
+    {
+        std::cout << "Test collision 2" << std::endl;
+    }
+    
+    if (mobs[2].getNode()->getTransformedBoundingBox().intersectsWithBox(character->getNode()->getTransformedBoundingBox()) && game_set)
+    {
+        std::cout << "Test collision 3" << std::endl;
+    }  
+
+    game_set = true;
+
     if (event_receiver.GetKeyboardState(irr::KEY_KEY_W))
     {
         character->moveForward();
@@ -147,4 +166,37 @@ void Game::update()
 
     if (event_receiver.GetKeyboardState(irr::KEY_ESCAPE))
         menu.showPauseMenu();
+}
+
+void Game::addMob(irr::core::vector3df pos)
+{
+    Mobs* mob = new Mobs;
+
+    irr::scene::IAnimatedMeshSceneNode* node = this->scene_manager->addAnimatedMeshSceneNode(this->meshes["faerie"]);
+    mob->setNode(node);
+    mob->getNode()->setMaterialFlag(video::EMF_LIGHTING, false);
+    mob->getNode()->setScale({1,1,1});
+    mob->setPosition(pos);
+
+    std::cout << mob->ID << std::endl;
+
+    this->terrainSceneNode->setTriangleSelector(mapSelector);
+
+    irr::scene::ISceneNodeAnimator* scene_node_animator = scene_manager->createCollisionResponseAnimator(mapSelector, mob->getNode(), mob->getCollideRadius());
+
+    mob->getNode()->addAnimator(scene_node_animator);
+    scene_node_animator->drop();
+
+    this->mobs.push_back(*mob);
+}
+
+void Game::loadMeshes() 
+{
+    /* Ninja */
+    irr::scene::IAnimatedMesh* ninja = this->scene_manager->getMesh("assets/ninja.b3d");
+    meshes["ninja"] = ninja;
+
+    /* Faerie */
+    irr::scene::IAnimatedMesh* faerie = this->scene_manager->getMesh("assets/faerie.md2");
+    meshes["faerie"] = faerie;
 }

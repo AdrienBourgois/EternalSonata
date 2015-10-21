@@ -76,55 +76,19 @@ Hero SaveManager::loadPlayer()
                 else if (currentSection.equals_ignore_case(armorTag))
                 {
                     if (((core::stringw)"head").equals_ignore_case(xmlReader->getNodeName()))
-                    {
-                        armorPieceName = xmlReader->getAttributeValueSafe(L"name");
-                        armorPiecePd = xmlReader->getAttributeValueSafe(L"pd");
-                        armorPieceMd = xmlReader->getAttributeValueSafe(L"md");
-                        head.setName((std::string)armorPieceName.c_str());
-                        head.setMagDef(core::strtol10(armorPieceMd.c_str()));
-                        head.setPhyDef(core::strtol10(armorPiecePd.c_str()));
-                    }
+                        loadArmorPiece(head);
                     if (((core::stringw)"torso").equals_ignore_case(xmlReader->getNodeName()))
-                    {
-                        armorPieceName = xmlReader->getAttributeValueSafe(L"name");
-                        armorPiecePd = xmlReader->getAttributeValueSafe(L"pd");
-                        armorPieceMd = xmlReader->getAttributeValueSafe(L"md");
-                        torso.setName((std::string)armorPieceName.c_str());
-                        torso.setMagDef(core::strtol10(armorPieceMd.c_str()));
-                        torso.setPhyDef(core::strtol10(armorPiecePd.c_str()));
-                    }
+                        loadArmorPiece(torso);
                     if (((core::stringw)"pants").equals_ignore_case(xmlReader->getNodeName()))
-                    {
-                        armorPieceName = xmlReader->getAttributeValueSafe(L"name");
-                        armorPiecePd = xmlReader->getAttributeValueSafe(L"pd");
-                        armorPieceMd = xmlReader->getAttributeValueSafe(L"md");
-                        pants.setName((std::string)armorPieceName.c_str());
-                        pants.setMagDef(core::strtol10(armorPieceMd.c_str()));
-                        pants.setPhyDef(core::strtol10(armorPiecePd.c_str()));
-                    }
+                        loadArmorPiece(pants);
                     if (((core::stringw)"boots").equals_ignore_case(xmlReader->getNodeName()))
-                    {
-                        armorPieceName = xmlReader->getAttributeValueSafe(L"name");
-                        armorPiecePd = xmlReader->getAttributeValueSafe(L"pd");
-                        armorPieceMd = xmlReader->getAttributeValueSafe(L"md");
-                        boots.setName((std::string)armorPieceName.c_str());
-                        boots.setMagDef(core::strtol10(armorPieceMd.c_str()));
-                        boots.setPhyDef(core::strtol10(armorPiecePd.c_str()));
-                    }
+                        loadArmorPiece(boots);
                     if (((core::stringw)"gloves").equals_ignore_case(xmlReader->getNodeName()))
-                    {
-                        armorPieceName = xmlReader->getAttributeValueSafe(L"name");
-                        armorPiecePd = xmlReader->getAttributeValueSafe(L"pd");
-                        armorPieceMd = xmlReader->getAttributeValueSafe(L"md");
-                        gloves.setName((std::string)armorPieceName.c_str());
-                        gloves.setMagDef(core::strtol10(armorPieceMd.c_str()));
-                        gloves.setPhyDef(core::strtol10(armorPiecePd.c_str()));
-                    }
+                        loadArmorPiece(gloves);
                 }
 
                 else if (currentSection.equals_ignore_case(weaponTag))
                 {
-                    std::cout << "Passe2" << std::endl;
                     weaponName = xmlReader->getAttributeValueSafe(L"name");
                     weaponDamage = xmlReader->getAttributeValueSafe(L"damage");
                     weapon.setName((std::string)weaponName.c_str());
@@ -164,3 +128,12 @@ Hero SaveManager::loadPlayer()
     return player;
 }
 
+void SaveManager::loadArmorPiece(Armor_Piece &piece)
+{
+    core::stringc armorPieceName = xmlReader->getAttributeValueSafe(L"name");
+    core::stringc armorPiecePd = xmlReader->getAttributeValueSafe(L"pd");
+    core::stringc armorPieceMd = xmlReader->getAttributeValueSafe(L"md");
+    piece.setName((std::string)armorPieceName.c_str());
+    piece.setMagDef(core::strtol10(armorPieceMd.c_str()));
+    piece.setPhyDef(core::strtol10(armorPiecePd.c_str()));
+}

@@ -10,6 +10,9 @@
 
 class Entity 
 {
+    protected:
+        unsigned int                        uniqueID;
+
     private:
         unsigned int                        life;
         unsigned int                        animationState;
@@ -48,6 +51,7 @@ class Entity
         const irr::core::vector3df getCollideRadius();
         int getAnimationState() const                   { return animationState; }
         bool getStealth() const                         { return stealth; }
+        auto getID() { return this->uniqueID; }
 
         void move(int, float);
 

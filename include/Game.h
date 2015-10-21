@@ -19,6 +19,7 @@ class Game
 
         irr::scene::IMesh*                                  terrain; 
         scene::ITerrainSceneNode*                           terrainSceneNode;
+        scene::ITerrainSceneNode*                           battleSceneNode;
         Hero                                                character;
         scene::IAnimatedMeshSceneNode*                      player;
 
@@ -26,7 +27,7 @@ class Game
         EventReceiver                                       event_receiver;
         std::vector<Mobs>                                   mobs;
         std::map<std::string, irr::scene::IAnimatedMesh*>   meshes;
-        irr::scene::ITriangleSelector* mapSelector;
+        irr::scene::IMetaTriangleSelector* mapSelector;
 
         bool                                                game_set;
 
@@ -44,6 +45,8 @@ class Game
         void loadMeshes();
         void addMob(irr::core::vector3df pos);
         std::array<irr::SKeyMap, 6> getWASDControl();
+        void startBattle();
+        bool _checkCollision(Entity& e, Entity& f);
         void end();
 
         void updateCamera();

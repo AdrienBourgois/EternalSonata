@@ -3,6 +3,8 @@
 #include "Direction.h"
 #include <cassert>
 #include <iostream>
+#include <algorithm>
+
 
 Game::Game()
 {
@@ -35,7 +37,19 @@ void Game::loadMap()
 
     terrain = terrainSceneNode->getMesh();
 
-    this->mapSelector = scene_manager->createTerrainTriangleSelector(terrainSceneNode, 0);
+    irr::scene::ITriangleSelector* explorationSelector = scene_manager->createTerrainTriangleSelector(terrainSceneNode, 0);
+
+    mapSelector = scene_manager->createMetaTriangleSelector();
+    mapSelector->addTriangleSelector(explorationSelector);
+
+    battleSceneNode = scene_manager->addTerrainSceneNode("assets/terrain-heightmap.bmp", 0, -1, {0.f, 2000.f, 0.f}, {0.f, 0.f, 0.f}, {5.f, 0.f, 5.f}, {255, 125, 0, 0}, 1);
+    battleSceneNode->setMaterialFlag(video::EMF_LIGHTING, false);
+    battleSceneNode->setMaterialTexture(0, driver->getTexture("assets/terrain-texture.jpg"));
+    battleSceneNode->setMaterialType(video::EMT_DETAIL_MAP);
+    
+    irr::scene::ITriangleSelector* battleSelector = scene_manager->createTerrainTriangleSelector(battleSceneNode, 0);
+
+    mapSelector->addTriangleSelector(battleSelector);
 }
 
 std::array<irr::SKeyMap, 6> Game::getWASDControl()
@@ -96,24 +110,41 @@ void Game::updateCamera()
     camera->setTarget(posPlayer - lookOffset);
 }
 
+bool Game::_checkCollision(Entity& e, Entity& f)
+{
+    if (e.getNode()->getTransformedBoundingBox().intersectsWithBox(
+            f.getNode()->getTransformedBoundingBox())
+            && this->game_set)
+    {
+        std::cout << "Collision between Entity[" << e.getID() << "] and Entity[" << f.getID() << "]." << std::endl;
+        
+        return true;
+    }
+
+    return false;
+}
+
+void Game::startBattle()
+{
+    this->terrainSceneNode->setVisible(false);
+    for(std::vector<Mobs>::iterator it = mobs.begin(); it != mobs.end(); ++it)
+    {
+        it->getNode()->setVisible(false);
+    }
+
+    this->character.setPosition({1000, 2200, 1000});
+    this->camera->setPosition({500,2500,500});
+}
+
 void Game::update()
 {
-    //mobs.front().getCollideRadius();
-
-    if (mobs.front().getNode()->getTransformedBoundingBox().intersectsWithBox(character.getNode()->getTransformedBoundingBox()) && game_set)
+    for(std::vector<Mobs>::iterator it = mobs.begin(); it != mobs.end(); ++it)
     {
-        std::cout << "Test collision 1" << std::endl;
+        if(_checkCollision(*it, this->character))
+        {
+            startBattle();
+        }
     }
-    
-    if (mobs[1].getNode()->getTransformedBoundingBox().intersectsWithBox(character.getNode()->getTransformedBoundingBox()) && game_set)
-    {
-        std::cout << "Test collision 2" << std::endl;
-    }
-    
-    if (mobs[2].getNode()->getTransformedBoundingBox().intersectsWithBox(character.getNode()->getTransformedBoundingBox()) && game_set)
-    {
-        std::cout << "Test collision 3" << std::endl;
-    }  
 
     game_set = true;
     character.update();

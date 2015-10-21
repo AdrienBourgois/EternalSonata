@@ -7,7 +7,6 @@ class Hero : public Character
     private:
         unsigned int xp;
 
-
     public:
         Hero();
         ~Hero() = default;

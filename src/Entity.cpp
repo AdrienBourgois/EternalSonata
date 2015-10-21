@@ -7,6 +7,7 @@ unsigned int Entity::ID = 0;
 Entity::Entity()
 {
     ID += 1;
+    uniqueID = ID;
     life = 10;
     animationState = NONE;
     stealth = false;

@@ -137,3 +137,43 @@ void SaveManager::loadArmorPiece(Armor_Piece &piece)
     piece.setMagDef(core::strtol10(armorPieceMd.c_str()));
     piece.setPhyDef(core::strtol10(armorPiecePd.c_str()));
 }
+
+void SaveManager::savePlayer(Hero player)
+{
+    xmlWriter = NullDevice->getFileSystem()->createXMLWriter(pathFile);
+
+    xmlWriter->writeXMLHeader();
+
+    xmlWriter->writeElement(L"player");
+    xmlWriter->writeLineBreak();
+
+    wchar_t Agility      = player.getAgility();
+    wchar_t Dexterity    = player.getDexterity();
+    wchar_t Intelligence = player.getIntelligence();
+    wchar_t Luck         = player.getLuck();
+    //wchar_t Name         = player.getName();
+    wchar_t Resistance   = player.getResistance();
+    wchar_t Speed        = player.getSpeed();
+    wchar_t Spirit       = player.getSpirit();
+    wchar_t Strength     = player.getStrength();
+
+    xmlWriter->writeElement(L"stat",true, L"name", L"agility", L"value", &Agility);
+    xmlWriter->writeLineBreak();
+    xmlWriter->writeElement(L"stat",true, L"name", L"dexterity", L"value", &Dexterity);
+    xmlWriter->writeLineBreak();
+    xmlWriter->writeElement(L"stat",true, L"name", L"intelligence", L"value", &Intelligence);
+    xmlWriter->writeLineBreak();
+    xmlWriter->writeElement(L"stat",true, L"name", L"luck", L"value", &Luck);
+    xmlWriter->writeLineBreak();
+    //xmlWriter->writeElement(L"stat",true, L"name", L"name", L"value", &Name);
+    //xmlWriter->writeLineBreak();
+    xmlWriter->writeElement(L"stat",true, L"name", L"resistance", L"value", &Resistance);
+    xmlWriter->writeLineBreak();
+    xmlWriter->writeElement(L"stat",true, L"name", L"speed", L"value", &Speed);
+    xmlWriter->writeLineBreak();
+    xmlWriter->writeElement(L"stat",true, L"name", L"spirit", L"value", &Spirit);
+    xmlWriter->writeLineBreak();
+    xmlWriter->writeElement(L"stat",true, L"name", L"strength", L"value", &Strength);
+
+    //Armor armor = player.getArmor();
+}

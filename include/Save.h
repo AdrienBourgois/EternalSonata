@@ -17,7 +17,7 @@ public:
     ~SaveManager() = default;
 
     void setPathFile(const core::stringw& newPathFile) {this->pathFile = newPathFile;}
-    //void savePlayer();
+    void savePlayer(Hero);
     Hero loadPlayer();
     void loadArmorPiece(Armor_Piece&);
     //void loadConfig();

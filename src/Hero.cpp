@@ -13,7 +13,6 @@ void Hero::update()
     int previous_state = getAnimationState();
     float speed;
 
-<<<<<<< HEAD
     if (!inBattle)
     {
         if (event_receiver->GetKeyboardState(irr::KEY_LSHIFT))

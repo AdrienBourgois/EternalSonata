@@ -7,7 +7,7 @@ void Menu::showMainMenu()
 {
     setWindowSize(driver->getScreenSize());
     this->env = this->device->getGUIEnvironment();
-    if (!this->isMenuDisplay() || this->newSize)
+    if (!this->isMainDisplay() || this->newSize)
     {
         env->clear();
         this->setResponsive();
@@ -16,7 +16,7 @@ void Menu::showMainMenu()
         env->addButton({40 * w_w_100, 70 * w_h_100, 60 * w_w_100, 80 * w_h_100},
                 0, GUI_ID_QUIT_BUTTON, L"Quit");
 
-        this->menuDisplay = 1;
+        this->mainDisplay = 1;
         this->newSize = false;
     }
 }
@@ -25,7 +25,7 @@ void Menu::showPauseMenu()
 {
     setWindowSize(driver->getScreenSize());
     this->env = this->device->getGUIEnvironment();
-    if (!this->isMenuDisplay() || this->newSize)
+    if (!this->isPauseDisplay() || this->newSize)
     {
         env->clear();
         this->setResponsive();
@@ -34,7 +34,7 @@ void Menu::showPauseMenu()
         env->addButton({40 * w_w_100, 70 * w_h_100, 60 * w_w_100, 80 * w_h_100},
                 0, GUI_ID_QUIT_BUTTON, L"Quit");
 
-        this->menuDisplay = 1;
+        this->pauseDisplay = 1;
         this->newSize = false;
     }
 }
@@ -43,7 +43,7 @@ void Menu::showPlayerMenu(Hero player)
 {
     setWindowSize(driver->getScreenSize());
     this->env = this->device->getGUIEnvironment();
-    if (!this->isMenuDisplay() || this->newSize)
+    if (!this->isPlayerDisplay() || this->newSize)
     {
         env->clear();
         this->setResponsive();
@@ -59,7 +59,7 @@ void Menu::showPlayerMenu(Hero player)
         showStat(L"Spirit :", player.getSpirit(), 11, 39);
         showStat(L"Agility :", player.getAgility(), 11, 43);
 
-        this->menuDisplay = 1;
+        this->playerDisplay = 1;
         this->newSize = false;
     }
 }
@@ -74,7 +74,7 @@ void Menu::showFightMenu()
 {
     setWindowSize(driver->getScreenSize());
     this->env = this->device->getGUIEnvironment();
-    if (!this->isMenuDisplay() || this->newSize)
+    if (!this->isFightDisplay() || this->newSize)
     {
         env->clear();
         this->setResponsive();
@@ -88,14 +88,18 @@ void Menu::showFightMenu()
         env->addButton({80 * w_w_100, 80 * w_h_100, 100 * w_w_100, 95 * w_h_100},
                 0, GUI_ID_FIGHT_RUN, L"Run !");
 
-        this->menuDisplay = 1;
+        this->fightDisplay = 1;
         this->newSize = false;
     }
     
 }
 
-/*void Menu::quitMenu()
+void Menu::quitMenu()
 {
+    mainDisplay = 0;
+    pauseDisplay = 0;
+    playerDisplay = 0;
+    fightDisplay = 0;
     menuToBeDisplay = 0;
     env->clear();
-}*/
+}

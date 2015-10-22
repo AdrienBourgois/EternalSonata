@@ -198,9 +198,9 @@ void Game::update()
         device->closeDevice();
 
     else if (event_receiver.getIdButton() == GUI_ID_PLAY_BUTTON || event_receiver.getIdButton() == GUI_ID_PAUSE_RESUME_BUTTON)
-        menu.closeMenu();
+        menu.quitMenu();
 
-    if (event_receiver.GetKeyboardState(irr::KEY_ESCAPE))
+    if (event_receiver.GetKeyboardState(irr::KEY_ESCAPE) && !(menu.isPauseDisplay()))
         menu.showPauseMenu();
 }
 

@@ -16,12 +16,10 @@ public:
 
     void showMainMenu();
     void showPauseMenu();
-    void closeMenu() {menuToBeDisplay = 0;
-                      env->clear();}
     void showPlayerMenu(Hero);
     void showStat(const wchar_t *, int, int, int);
     void showFightMenu();
-    //void quitMenu();
+    void quitMenu();
 
     void setWindowSize(core::dimension2d<u32> size) { if (this->windowSize != size) 
                                                         {windowSize = size;
@@ -36,7 +34,13 @@ public:
                                             this->driver = device->getVideoDriver();
                                             this->env = device->getGUIEnvironment();}
 
-    bool isMenuDisplay() {if (this->menuDisplay) return true;
+    bool isMainDisplay() {if (this->mainDisplay) return true;
+                          else return false;}
+    bool isPauseDisplay() {if (this->pauseDisplay) return true;
+                          else return false;}
+    bool isPlayerDisplay() {if (this->playerDisplay) return true;
+                          else return false;}
+    bool isFightDisplay() {if (this->fightDisplay) return true;
                           else return false;}
 
 private:
@@ -49,7 +53,10 @@ private:
     int window_width;
     int w_h_100;
     int w_w_100;
-    int menuDisplay = 0;
+    int mainDisplay = 0;
+    int pauseDisplay = 0;
+    int playerDisplay = 0;
+    int fightDisplay = 0;
     int menuToBeDisplay = 0;
 };
 

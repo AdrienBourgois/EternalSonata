@@ -1,7 +1,10 @@
 #ifndef __MENU_INCLUDE__
 #define __MENU_INCLUDE__
 
+#include <string>
 #include "myIrrlicht.h"
+#include "EventReceiver.h"
+#include "Hero.h"
 
 using namespace irr;
 
@@ -15,7 +18,8 @@ public:
     void showPauseMenu();
     void closeMenu() {menuToBeDisplay = 0;
                       env->clear();}
-    //void showPlayerManu();
+    void showPlayerMenu(Hero);
+    void showStat(const wchar_t *, int, int, int);
     //void quitMenu();
 
     void setWindowSize(core::dimension2d<u32> size) { if (this->windowSize != size) 
@@ -24,8 +28,8 @@ public:
 
     void setResponsive() { this->window_width = this->windowSize.Width;
                            this->window_height = this->windowSize.Height;
-                           this->window_width_100 = this->window_width / 100;
-                           this->window_height_100 = this->window_height / 100; }
+                           this->w_w_100 = this->window_width / 100;
+                           this->w_h_100 = this->window_height / 100; }
 
     void setDevice(IrrlichtDevice* device) {this->device = device;
                                             this->driver = device->getVideoDriver();
@@ -42,8 +46,8 @@ private:
     bool newSize;
     int window_height;
     int window_width;
-    int window_height_100;
-    int window_width_100;
+    int w_h_100;
+    int w_w_100;
     int menuDisplay = 0;
     int menuToBeDisplay = 0;
 };

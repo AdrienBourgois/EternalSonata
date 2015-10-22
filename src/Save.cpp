@@ -9,9 +9,8 @@ SaveManager::SaveManager(const core::stringw& savePathFile)
     NullDevice = createDevice(irr::video::EDT_NULL);
 }
 
-Hero SaveManager::loadPlayer()
+Hero SaveManager::loadPlayer(Hero& player)
 {
-    Hero player;
     Armor armor;
     Weapon weapon;
 

@@ -18,7 +18,7 @@ public:
 
     void setPathFile(const core::stringw& newPathFile) {this->pathFile = newPathFile;}
     void savePlayer(Hero);
-    Hero loadPlayer();
+    Hero loadPlayer(Hero&);
     void loadArmorPiece(Armor_Piece&);
     //void loadConfig();
     //void saveConfig();

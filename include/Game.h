@@ -7,6 +7,7 @@
 #include "EventReceiver.h"
 #include "Menu.h"
 #include "Mobs.h"
+#include "Save.h"
 
 class Game
 {

@@ -95,6 +95,10 @@ void Game::loadPlayer()
 
     character.getNode()->addAnimator(scene_node_animator);
     scene_node_animator->drop();
+
+    SaveManager saveMgr("assets/player.xml");
+    saveMgr.loadPlayer(character);
+
 }
 
 void Game::end()

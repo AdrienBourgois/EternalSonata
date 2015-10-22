@@ -31,6 +31,8 @@ class Game
         irr::scene::IMetaTriangleSelector* mapSelector;
 
         bool                                                game_set;
+        SaveManager                                         save_manager;
+
 
     public:
         Game();

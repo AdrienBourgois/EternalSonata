@@ -50,7 +50,7 @@ void Character::debugCharacter()
 {
     using namespace std;
 
-    cout    << "[araer Debug]" << endl
+    cout    << "[Character Debug]" << endl
             << "-Name: " << getName() << endl
             << "-Level: " << getLevel() << endl
             << "-Strength: " << getStrength() << endl
@@ -76,7 +76,3 @@ void Character::debugCharacter()
     inventory.showInventory();
 }
 
-void Character::levelUp()
-{
-    setLevel(level += 1);
-}

@@ -17,13 +17,13 @@ class Character : public Entity
     private:
         std::string         name;
         unsigned int        level;
-        Stats               stats;
         Weapon              weapon;
         Armor               armor;
         Inventory           inventory;
 
     protected:
         EventReceiver*      event_receiver;
+        Stats               stats;
 
     public:
 
@@ -65,7 +65,6 @@ class Character : public Entity
 
         void debugCharacter();
 
-        void levelUp();
         
         virtual void update() = 0;
 

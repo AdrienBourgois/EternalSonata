@@ -14,7 +14,6 @@ class Entity
         unsigned int                        uniqueID;
 
     private:
-        unsigned int                        life;
         unsigned int                        animationState;
         bool                                stealth;
         irr::scene::IAnimatedMeshSceneNode* node;
@@ -28,6 +27,11 @@ class Entity
         void moveDownRigth(float);
         void moveDownLeft(float);
         void idle();
+
+    protected:
+        unsigned int                        life;
+
+
 
     public:
         static unsigned int ID;

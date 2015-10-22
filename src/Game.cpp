@@ -98,7 +98,6 @@ void Game::loadPlayer()
 
     SaveManager saveMgr("assets/player.xml");
     saveMgr.loadPlayer(character);
-
 }
 
 void Game::end()
@@ -140,6 +139,7 @@ bool Game::_checkCollision(Entity& e, Entity& f)
 
 void Game::startBattle(std::vector<Mobs> battleGroup)
 {
+    menu.showFightMenu();
     this->terrainSceneNode->setVisible(false);
     for(std::vector<Mobs>::iterator it = mobs.begin(); it != mobs.end(); ++it)
     {

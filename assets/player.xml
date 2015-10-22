@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<player>
+    <stat name="name" value="Cookie">
+    <stat name="strength" value="3500">
+    <stat name="dexterity" value="2100">
+    <stat name="inteligence" value="15300">
+    <stat name="speed" value="-100">
+    <stat name="resistance" value="-100">
+    <stat name="luck" value="-100">
+    <stat name="spirit" value="12000">
+    <stat name="agility" value="2000">
+</player>
+<armor>
+    <head name="headset" pd="20" md="15">
+    <torso name="torso" pd="20" md="15">
+    <pants name="torso" pd="20" md="15">
+    <boots name="torso" pd="20" md="15">
+    <gloves name="torso" pd="20" md="15">
+</armor>
+<weapon>
+    <weapon name="name" damage="20">
+</weapon>

@@ -40,7 +40,7 @@ void Inventory::showInventory()
                     case OTHER: cout << "Undefined Item"; break;
                     default: break;
                 } 
-                cout << endl;
+                cout << endl << endl;
     }
 
 }

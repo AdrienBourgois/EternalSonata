@@ -27,14 +27,13 @@ Entity::~Entity()
     std::cout << "Entity[" << uniqueID << "] destroyed." << std::endl;
 }
 
-ostream& operator <<(ostream& os, Entity& given_entity)
+void Entity::debugEntity()
 {
     using namespace std;
 
-    os  << "[Entity Debug]" 
-        << "-Life: " << given_entity.getLife() << endl;
-
-    return os;
+    cout    << endl << "[Entity Debug]" << endl 
+            << "-ID:" << uniqueID << endl
+            << "-Life: " << life << endl;
 }
 
 void Entity::moveForward(float speed)

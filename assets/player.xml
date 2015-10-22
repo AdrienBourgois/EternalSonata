@@ -11,12 +11,12 @@
     <stat name="agility" value="2000">
 </player>
 <armor>
-    <head name="headset" pd="20" md="15">
-    <torso name="torso" pd="20" md="15">
-    <pants name="torso" pd="20" md="15">
-    <boots name="torso" pd="20" md="15">
-    <gloves name="torso" pd="20" md="15">
+    <head name="Skull of a Dragon" pd="20" md="15">
+    <torso name="Cookie Breastplate" pd="20" md="15">
+    <pants name="Cookie Pants" pd="20" md="15">
+    <boots name="Cookie Boots" pd="20" md="15">
+    <gloves name="Cookie Gloves" pd="20" md="15">
 </armor>
 <weapon>
-    <weapon name="name" damage="20">
+    <weapon name="Cookie Dragon Zweihander" damage="20">
 </weapon>

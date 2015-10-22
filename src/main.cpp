@@ -21,6 +21,8 @@ int main(int, char*[])
 
     game.getMenu().showMainMenu();
 
+    game.getPlayer().debugCharacter();
+
     while (game.getDevice()->run())
     {
         game.update();

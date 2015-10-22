@@ -58,10 +58,11 @@ class Entity
         auto getID() { return this->uniqueID; }
 
         void move(int, float);
+        void debugEntity();
 
 };
 
 using namespace std;
-ostream& operator <<(ostream&, Entity&);
+
 
 #endif // __ENTITY_H__

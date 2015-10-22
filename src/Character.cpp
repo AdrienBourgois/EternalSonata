@@ -50,6 +50,8 @@ void Character::debugCharacter()
 {
     using namespace std;
 
+    debugEntity(); 
+
     cout    << "[Character Debug]" << endl
             << "-Name: " << getName() << endl
             << "-Level: " << getLevel() << endl

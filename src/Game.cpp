@@ -193,7 +193,7 @@ void Game::update()
     }
 
     game_set = true;
-    
+    character.update();
     if (event_receiver.getIdButton() == GUI_ID_QUIT_BUTTON || event_receiver.getIdButton() == GUI_ID_PAUSE_QUIT_BUTTON)
         device->closeDevice();
 

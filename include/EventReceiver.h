@@ -14,6 +14,14 @@ enum pauseMenuButton
     GUI_ID_PAUSE_QUIT_BUTTON,
 };
 
+enum fightMenuButton
+{
+    GUI_ID_FIGHT_ATTACK = 301,
+    GUI_ID_FIGHT_MAGIC,
+    GUI_ID_FIGHT_INVENTORY,
+    GUI_ID_FIGHT_RUN,
+};
+
 class EventReceiver : public irr::IEventReceiver
 {
     private:

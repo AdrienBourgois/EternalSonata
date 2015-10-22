@@ -70,6 +70,30 @@ void Menu::showStat(const wchar_t * text, int value, int w, int h)
     env->addStaticText((core::stringw(value).c_str()), {(w+10) * w_w_100, h * w_h_100, (w+20) * w_w_100, (h+2) * w_h_100});
 }
 
+void Menu::showFightMenu()
+{
+    setWindowSize(driver->getScreenSize());
+    this->env = this->device->getGUIEnvironment();
+    if (!this->isMenuDisplay() || this->newSize)
+    {
+        env->clear();
+        this->setResponsive();
+
+        env->addButton({5 * w_w_100, 80 * w_h_100, 25 * w_w_100, 95 * w_h_100},
+                0, GUI_ID_FIGHT_ATTACK, L"Attack !");
+        env->addButton({30 * w_w_100, 80 * w_h_100, 50 * w_w_100, 95 * w_h_100},
+                0, GUI_ID_FIGHT_MAGIC, L"Magic !");
+        env->addButton({55 * w_w_100, 80 * w_h_100, 75 * w_w_100, 95 * w_h_100},
+                0, GUI_ID_FIGHT_INVENTORY, L"Inventory");
+        env->addButton({80 * w_w_100, 80 * w_h_100, 100 * w_w_100, 95 * w_h_100},
+                0, GUI_ID_FIGHT_RUN, L"Run !");
+
+        this->menuDisplay = 1;
+        this->newSize = false;
+    }
+    
+}
+
 /*void Menu::quitMenu()
 {
     menuToBeDisplay = 0;

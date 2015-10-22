@@ -20,6 +20,7 @@ public:
                       env->clear();}
     void showPlayerMenu(Hero);
     void showStat(const wchar_t *, int, int, int);
+    void showFightMenu();
     //void quitMenu();
 
     void setWindowSize(core::dimension2d<u32> size) { if (this->windowSize != size) 

@@ -1,7 +1,6 @@
 #include "Character.h"
 #include <cassert>
 
-
 Character::Character()
 {
     name = "Inideva";

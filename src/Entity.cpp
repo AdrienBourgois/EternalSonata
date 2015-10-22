@@ -8,6 +8,7 @@ Entity::Entity()
 {
     ID += 1;
     uniqueID = ID;
+    std::cout << "Creating entity " << uniqueID << std::endl;
     life = 10;
     animationState = NONE;
     stealth = false;
@@ -23,7 +24,7 @@ Entity::Entity(unsigned int entity_life)
 
 Entity::~Entity()
 {
-    ID -= 1;
+    std::cout << "Entity[" << uniqueID << "] destroyed." << std::endl;
 }
 
 ostream& operator <<(ostream& os, Entity& given_entity)
@@ -179,7 +180,6 @@ const irr::core::vector3df Entity::getCollideRadius()
 {
     const irr::core::aabbox3d<irr::f32> box = this->node->getTransformedBoundingBox();
     irr::core::vector3df radius = box.MaxEdge - box.getCenter();
-    std::cout << radius.X << " " << radius.Y << " " << radius.Z << std::endl;
 
     return radius;
 }

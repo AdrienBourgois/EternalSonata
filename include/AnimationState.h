@@ -6,6 +6,7 @@ enum AnimationState
     IDLE = 0,
     WALKING,
     STEALTH,
+    BATTLE,
 };
 
 #endif

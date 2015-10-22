@@ -5,6 +5,7 @@
 Hero::Hero()
 {
     xp = 0;
+    inBattle = false;
 }
 
 void Hero::update()
@@ -12,93 +13,99 @@ void Hero::update()
     int previous_state = getAnimationState();
     float speed;
 
-
-    if (event_receiver->GetKeyboardState(irr::KEY_LSHIFT))
+    if (!inBattle)
     {
-        setStealth(true);
-        speed = 1.f;
-    }
-    else
-    {
-        setStealth(false);
-        speed = 2.f;
-    }
-
-    if (event_receiver->GetKeyboardState(irr::KEY_KEY_W))
-    {
-        if (event_receiver->GetKeyboardState(irr::KEY_KEY_D))
+        if (event_receiver->GetKeyboardState(irr::KEY_LSHIFT))
         {
-            move(UPPER_RIGHT, speed);
+            setStealth(true);
+            speed = 1.f;
         }
-
-        else if (event_receiver->GetKeyboardState(irr::KEY_KEY_A))
-        {
-            move(UPPER_LEFT, speed);
-        }
-
         else
         {
-            move(UP, speed);
-        }
-    }
-
-    else if (event_receiver->GetKeyboardState(irr::KEY_KEY_S))
-    {
-        if (event_receiver->GetKeyboardState(irr::KEY_KEY_D))
-        {
-            move(DOWN_RIGHT, speed);
+            setStealth(false);
+            speed = 2.f;
         }
 
-        else if (event_receiver->GetKeyboardState(irr::KEY_KEY_A))
-        {
-            move(DOWN_LEFT, speed);
-        }
-
-        else
-        {
-            move(DOWN, speed);
-        }
-    }
-
-    else if (event_receiver->GetKeyboardState(irr::KEY_KEY_D))
-    {
         if (event_receiver->GetKeyboardState(irr::KEY_KEY_W))
         {
-            move(UPPER_RIGHT, speed);
+            if (event_receiver->GetKeyboardState(irr::KEY_KEY_D))
+            {
+                move(UPPER_RIGHT, speed);
+            }
+
+            else if (event_receiver->GetKeyboardState(irr::KEY_KEY_A))
+            {
+                move(UPPER_LEFT, speed);
+            }
+
+            else
+            {
+                move(UP, speed);
+            }
         }
 
         else if (event_receiver->GetKeyboardState(irr::KEY_KEY_S))
         {
-            move(DOWN_RIGHT, speed);
+            if (event_receiver->GetKeyboardState(irr::KEY_KEY_D))
+            {
+                move(DOWN_RIGHT, speed);
+            }
+
+            else if (event_receiver->GetKeyboardState(irr::KEY_KEY_A))
+            {
+                move(DOWN_LEFT, speed);
+            }
+
+            else
+            {
+                move(DOWN, speed);
+            }
+        }
+
+        else if (event_receiver->GetKeyboardState(irr::KEY_KEY_D))
+        {
+            if (event_receiver->GetKeyboardState(irr::KEY_KEY_W))
+            {
+                move(UPPER_RIGHT, speed);
+            }
+
+            else if (event_receiver->GetKeyboardState(irr::KEY_KEY_S))
+            {
+                move(DOWN_RIGHT, speed);
+            }
+
+            else
+            {
+                move(RIGHT, speed);
+            }
+        }
+
+        else if (event_receiver->GetKeyboardState(irr::KEY_KEY_A))
+        {
+            if (event_receiver->GetKeyboardState(irr::KEY_KEY_W))
+            {
+                move(UPPER_LEFT, speed);
+            }
+
+            else if (event_receiver->GetKeyboardState(irr::KEY_KEY_S))
+            {
+                move(DOWN_LEFT, speed);
+            }
+
+            else
+            {
+                move(LEFT, speed);
+            }
         }
 
         else
         {
-            move(RIGHT, speed);
+            move(NONE, speed);
         }
     }
-
-    else if (event_receiver->GetKeyboardState(irr::KEY_KEY_A))
+    else 
     {
-        if (event_receiver->GetKeyboardState(irr::KEY_KEY_W))
-        {
-            move(UPPER_LEFT, speed);
-        }
-
-        else if (event_receiver->GetKeyboardState(irr::KEY_KEY_S))
-        {
-            move(DOWN_LEFT, speed);
-        }
-
-        else
-        {
-            move(LEFT, speed);
-        }
-    }
-
-    else
-    {
-        move(NONE, speed);
+        move(NONE, 0.f);        
     }
 
     int state = getAnimationState();

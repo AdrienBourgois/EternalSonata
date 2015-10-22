@@ -6,6 +6,7 @@ class Hero : public Character
 {
     private:
         unsigned int xp;
+        bool inBattle;
 
     public:
         Hero();
@@ -13,6 +14,7 @@ class Hero : public Character
         Hero(Hero const&) = default;
 
         virtual void update() override;
+        bool& isInBattle() { return this->inBattle; }
 };
 
 #endif

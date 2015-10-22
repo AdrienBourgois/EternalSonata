@@ -1,9 +1,11 @@
 #include "Mobs.h"
-
-//unsigned int Mobs::ID = 0;
+#include <iostream>
 
 Mobs::Mobs()
 {
-    Character::ID += 1;
-    uniqueID = Character::ID;
 };
+
+Mobs::Mobs(std::vector<Mobs>& battleGroup)
+    :battleGroup(battleGroup)
+{
+}

@@ -45,7 +45,7 @@ class Game
         void loadMeshes();
         void addMob(irr::core::vector3df pos);
         std::array<irr::SKeyMap, 6> getWASDControl();
-        void startBattle();
+        void startBattle(std::vector<Mobs> battleGroup);
         bool _checkCollision(Entity& e, Entity& f);
         void end();
 

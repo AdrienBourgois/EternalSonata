@@ -85,6 +85,7 @@ void Game::loadPlayer()
     character.getNode()->setScale({7,7,7});
     character.getNode()->setMaterialFlag(video::EMF_LIGHTING, false);
     character.getNode()->setFrameLoop(206,250);
+    character.getNode()->setAnimationSpeed(5.f);
     
     camera = scene_manager->addCameraSceneNode();
 
@@ -103,11 +104,20 @@ void Game::end()
 
 void Game::updateCamera()
 {
-    core::vector3df posPlayer = character.getPosition();
     core::vector3df posOffset(0.f,-200.f,200.f);
     core::vector3df lookOffset(0.f,-30.f,0.f);
-    camera->setPosition(posPlayer - posOffset);
-    camera->setTarget(posPlayer - lookOffset);
+    if (!character.isInBattle())
+    {
+        core::vector3df posPlayer = character.getPosition();
+        camera->setPosition(posPlayer - posOffset);
+        camera->setTarget(posPlayer - lookOffset);
+    }
+    else
+    {
+        core::vector3df posBattle = battleSceneNode->getTerrainCenter();
+        camera->setPosition(posBattle - posOffset);
+        camera->setTarget(posBattle - lookOffset);
+    }
 }
 
 bool Game::_checkCollision(Entity& e, Entity& f)
@@ -124,7 +134,7 @@ bool Game::_checkCollision(Entity& e, Entity& f)
     return false;
 }
 
-void Game::startBattle()
+void Game::startBattle(std::vector<Mobs> battleGroup)
 {
     this->terrainSceneNode->setVisible(false);
     for(std::vector<Mobs>::iterator it = mobs.begin(); it != mobs.end(); ++it)
@@ -132,8 +142,40 @@ void Game::startBattle()
         it->getNode()->setVisible(false);
     }
 
-    this->character.setPosition({1000, 2200, 1000});
-    this->camera->setPosition({500,2500,500});
+    irr::core::vector3df charaRelativePos(200, 0, 0);
+    this->character.setPosition(battleSceneNode->getTerrainCenter() + charaRelativePos);
+    this->character.getNode()->setRotation({0,-90,0});
+    this->character.isInBattle() = true;
+
+    irr::core::vector3df mobRelativePos(-200, 50, -50);
+    for (std::vector<Mobs>::iterator mob = battleGroup.begin(); mob != battleGroup.end(); ++mob)
+    {
+        irr::video::SMaterial material;
+
+        std::cout << "Mob creation..." << std::endl;
+        irr::scene::IAnimatedMeshSceneNode* node = this->scene_manager->addAnimatedMeshSceneNode(this->meshes["ninja"]);
+        mob->setNode(node);
+        mob->getNode()->setMaterialFlag(video::EMF_LIGHTING, false);
+        mob->getNode()->setScale({7.f,7.f,7.f});
+        mob->getNode()->setFrameLoop(205,249);
+        mob->getNode()->setRotation({0, 90, 0});
+        mob->getNode()->setAnimationSpeed(5.f);
+
+        material.setTexture(0, driver->getTexture("assets/nskinrd.jpg"));
+        material.Lighting = false;
+        material.NormalizeNormals = true;
+
+        mob->getNode()->getMaterial(0) = material;
+
+        irr::scene::ISceneNodeAnimator* scene_node_animator = scene_manager->createCollisionResponseAnimator(mapSelector, mob->getNode(), mob->getCollideRadius());
+
+        mob->getNode()->addAnimator(scene_node_animator);
+        
+        mob->setPosition(battleSceneNode->getTerrainCenter() + mobRelativePos);
+        mobRelativePos.Z += 50;
+
+        scene_node_animator->drop();
+    }
 }
 
 void Game::update()
@@ -142,7 +184,7 @@ void Game::update()
     {
         if(_checkCollision(*it, this->character))
         {
-            startBattle();
+            startBattle(it->getGroup());
         }
     }
 
@@ -161,13 +203,20 @@ void Game::update()
 
 void Game::addMob(irr::core::vector3df pos)
 {
-    Mobs* mob = new Mobs;
+    std::vector<Mobs> battleGroup;
 
-    irr::scene::IAnimatedMeshSceneNode* node = this->scene_manager->addAnimatedMeshSceneNode(this->meshes["faerie"]);
+    battleGroup.push_back(Mobs());
+    battleGroup.push_back(Mobs());
+    battleGroup.push_back(Mobs());
+
+    Mobs* mob = new Mobs(battleGroup);
+
+    irr::scene::IAnimatedMeshSceneNode* node = this->scene_manager->addAnimatedMeshSceneNode(this->meshes["ninja"]);
     mob->setNode(node);
     mob->getNode()->setMaterialFlag(video::EMF_LIGHTING, false);
-    mob->getNode()->setScale({1,1,1});
+    mob->getNode()->setScale({7,7,7});
     mob->setPosition(pos);
+    mob->getNode()->setAnimationSpeed(5.f);
 
     std::cout << mob->ID << std::endl;
 
@@ -183,11 +232,9 @@ void Game::addMob(irr::core::vector3df pos)
 
 void Game::loadMeshes() 
 {
-    /* Ninja */
     irr::scene::IAnimatedMesh* ninja = this->scene_manager->getMesh("assets/ninja.b3d");
     meshes["ninja"] = ninja;
 
-    /* Faerie */
     irr::scene::IAnimatedMesh* faerie = this->scene_manager->getMesh("assets/faerie.md2");
     meshes["faerie"] = faerie;
 }

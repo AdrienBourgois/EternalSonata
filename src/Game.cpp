@@ -42,7 +42,7 @@ void Game::loadMap()
     mapSelector = scene_manager->createMetaTriangleSelector();
     mapSelector->addTriangleSelector(explorationSelector);
 
-    battleSceneNode = scene_manager->addTerrainSceneNode("assets/terrain-heightmap.bmp", 0, -1, {0.f, 2000.f, 0.f}, {0.f, 0.f, 0.f}, {5.f, 0.f, 5.f}, {255, 125, 0, 0}, 1);
+    battleSceneNode = scene_manager->addTerrainSceneNode("assets/terrain-heightmap.bmp", 0, -1, {0.f, 2000.f, 0.f}, {0.f, 0.f, 0.f}, {5.f, 0.f, 5.f}, {255, 255, 255, 255}, 1);
     battleSceneNode->setMaterialFlag(video::EMF_LIGHTING, false);
     battleSceneNode->setMaterialTexture(0, driver->getTexture("assets/terrain-texture.jpg"));
     battleSceneNode->setMaterialType(video::EMT_DETAIL_MAP);
@@ -221,6 +221,14 @@ void Game::addMob(irr::core::vector3df pos)
     mob->getNode()->setScale({7,7,7});
     mob->setPosition(pos);
     mob->getNode()->setAnimationSpeed(5.f);
+    
+    irr::video::SMaterial material;
+    
+    material.setTexture(0, driver->getTexture("assets/nskinrd.jpg"));
+    material.Lighting = false;
+    material.NormalizeNormals = true;
+
+    mob->getNode()->getMaterial(0) = material;
 
     std::cout << mob->ID << std::endl;
 

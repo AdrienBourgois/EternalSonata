@@ -24,7 +24,7 @@ Entity::Entity(unsigned int entity_life)
 
 Entity::~Entity()
 {
-    std::cout << "Entity[" << uniqueID << "] destroyed by " << __FUNCTION__ << std::endl;
+    std::cout << "Entity[" << uniqueID << "] destroyed." << std::endl;
 }
 
 void Entity::debugEntity()

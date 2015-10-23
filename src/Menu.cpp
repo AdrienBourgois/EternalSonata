@@ -103,3 +103,15 @@ void Menu::quitMenu()
     menuToBeDisplay = 0;
     env->clear();
 }
+
+void Menu::updateMenu(Hero player)
+{
+    if (mainDisplay)
+        showMainMenu();
+    if (pauseDisplay)
+        showPauseMenu();
+    if (fightDisplay)
+        showFightMenu();
+    if (playerDisplay)
+        showPlayerMenu(player);
+}

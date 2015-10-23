@@ -202,6 +202,10 @@ void Game::update()
 
     if (event_receiver.GetKeyboardState(irr::KEY_ESCAPE) && !(menu.isPauseDisplay()))
         menu.showPauseMenu();
+    if (event_receiver.GetKeyboardState(irr::KEY_KEY_P) && !(menu.isPlayerDisplay()))
+        menu.showPlayerMenu(character);
+
+    menu.updateMenu(character);
 }
 
 void Game::addMob(irr::core::vector3df pos)

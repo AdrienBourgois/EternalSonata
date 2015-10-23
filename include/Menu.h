@@ -1,7 +1,6 @@
 #ifndef __MENU_INCLUDE__
 #define __MENU_INCLUDE__
 
-#include <string>
 #include "myIrrlicht.h"
 #include "EventReceiver.h"
 #include "Hero.h"
@@ -42,6 +41,8 @@ public:
                           else return false;}
     bool isFightDisplay() {if (this->fightDisplay) return true;
                           else return false;}
+
+    void updateMenu(Hero);
 
 private:
     IrrlichtDevice* device;

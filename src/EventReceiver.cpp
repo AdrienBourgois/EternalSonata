@@ -29,14 +29,14 @@ bool EventReceiver::OnEvent(const irr::SEvent& event)
                 MouseState.RMBD = false;
     }
 
+    idButton = 0;
+
     if (event.EventType == irr::EET_GUI_EVENT)
     {
         irr::s32 id = event.GUIEvent.Caller->getID();
 
         if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
             idButton = id;
-        else
-            idButton = 0;
     }
 
     return false;

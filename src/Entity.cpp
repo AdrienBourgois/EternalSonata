@@ -24,7 +24,7 @@ Entity::Entity(unsigned int entity_life)
 
 Entity::~Entity()
 {
-    std::cout << "Entity[" << uniqueID << "] destroyed." << std::endl;
+    std::cout << "Entity[" << uniqueID << "] destroyed by " << __FUNCTION__ << std::endl;
 }
 
 void Entity::debugEntity()
@@ -182,3 +182,5 @@ const irr::core::vector3df Entity::getCollideRadius()
 
     return radius;
 }
+
+

@@ -23,7 +23,14 @@ Game::Game()
     this->game_set = false;
     character.setEventReceiver(&event_receiver);
 
+    loadMeshes();
+    loadMap();
+    loadPlayer();
 
+
+    getMenu().showMainMenu();
+
+    getPlayer().debugCharacter();
 }
 
 void Game::loadMap()
@@ -50,6 +57,10 @@ void Game::loadMap()
     irr::scene::ITriangleSelector* battleSelector = scene_manager->createTerrainTriangleSelector(battleSceneNode, 0);
 
     mapSelector->addTriangleSelector(battleSelector);
+
+    addMob({1150,1250,1500});
+    addMob({1050,1250,1500});
+    addMob({1250,1250,1500});
 }
 
 std::array<irr::SKeyMap, 6> Game::getWASDControl()
